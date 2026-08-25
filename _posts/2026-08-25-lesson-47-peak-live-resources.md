@@ -17,6 +17,8 @@ next_slug: lesson-48-when-to-split
 next_title: "什么时候应该切开 Megakernel？"
 ---
 
+> **本课用词**：peak-live 是同一资源在时间轴上的最大同时存活量；content token 只允许复用缓冲区内容，admission quota 才决定新 CTA 能否进入 SM；`setmaxnreg` 在 CTA 内调整 warpgroup 的寄存器预算，不是向 SM 动态归还寄存器。
+
 ## Peak-live 的公式
 
 对单一资源 `r`，物理 kernel 的峰值需求是：
@@ -43,7 +45,7 @@ consumer warpgroup 在 persistent loop 前执行 `setmaxnreg.inc`，service warp
 
 ## TMEM 为何不同又相同
 
-硬件上 TMEM 可以显式中途 alloc/dealloc；但 current allocator 在 kernel 入口构造、出口析构，因此实际生命周期仍覆盖整个 CTA。
+硬件上 TMEM 可以显式中途 alloc/dealloc；但当前 allocator 在 kernel 入口构造、出口析构，因此实际生命周期仍覆盖整个 CTA。
 
 这再次说明：硬件能力和这份代码的作用域必须分开描述。
 
@@ -52,4 +54,3 @@ consumer warpgroup 在 persistent loop 前执行 `setmaxnreg.inc`，service warp
 `CTA 入场 → 一次拿到 shared/register/TMEM envelope → instruction0/1 内容交错复用 → page token 循环 → 所有 instruction 完成 → CTA 退出 → 资源真正归还`
 
 理解这条时间线后，就不会把“page 已 free”误写成“occupancy 已提高”。
-

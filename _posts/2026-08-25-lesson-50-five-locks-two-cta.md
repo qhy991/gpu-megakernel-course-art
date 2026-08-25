@@ -17,6 +17,8 @@ next_slug: lesson-51-r0-r5-tree
 next_title: "R0–R5：五个实验臂为什么不能跳级？"
 ---
 
+> **本课用词**：2 CTA/SM 指同一个 SM 同时驻留两个 thread block；grid supply 是 launch 是否提供足够多的独立 CTA；worker identity 是每个 CTA 如何获得唯一任务槽；cluster2 把两个 CTA 组成一个协作 cluster，是另一种执行合同。
+
 ## 锁一：Shared Memory
 
 当前 exact canonical user shared 约 232176 B，再加 driver reserved 后几乎占满 B200 每 SM 容量。要容纳两个 CTA，每 CTA 必须降到约一半以内。
@@ -50,4 +52,3 @@ next_title: "R0–R5：五个实验臂为什么不能跳级？"
 `FIT → FILL → FINISH → FASTER`
 
 先证明资源容得下，再证明工作喂得满，再证明真实 KV 正确完成，最后才看延迟。任何跳步都会制造假阳性。
-

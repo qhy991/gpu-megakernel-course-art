@@ -17,6 +17,8 @@ next_slug: lesson-43-cut-resource-envelope
 next_title: "切一刀，会自动降低寄存器和 Shared Memory 吗？"
 ---
 
+> **本课用词**：arm 是受控实验中的一个候选分支；A/B/C/D 分别代表 individual、islands、per-layer 与 whole resident；同体对照表示模型、输入、数学、正确性门和计时边界都相同，只改变预注册变量。
+
 ## 四个实验臂
 
 一条理想的 island 证据梯应该包含：
@@ -54,4 +56,3 @@ GateUp→SwiGLU 的正向融合、Down→Norm 的负向实验、Aug17 provider s
 - context buckets 与 real KV；
 - both-order p50 至少跨过噪声门；
 - 任何桶回退时支持条件分发或归档。
-

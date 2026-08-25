@@ -1,5 +1,7 @@
 # Lesson 51 ImageGen prompts
 
+Purpose: archive the base generation prompt and its controlled visual variants for the Lesson 51 experiment-tree image. These prompts are reproducibility artifacts, not additional course claims.
+
 ## Base prompt
 
 Use case: scientific-educational

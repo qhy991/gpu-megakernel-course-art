@@ -1,5 +1,7 @@
 # Lesson 54 — targeted visual QA correction
 
+Purpose: correct labels and historical-evidence wording in the Lesson 54 base image while preserving the tested fault signatures.
+
 Preserve the generated layout and make only these evidence-critical corrections:
 
 1. In ACK_EARLY, label the four consumers exactly `W0, W1, W2, W3`.

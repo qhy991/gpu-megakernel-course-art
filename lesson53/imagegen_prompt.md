@@ -1,3 +1,7 @@
+# Lesson 53 ImageGen prompt
+
+Purpose: generate the base comparison image for R1b stage-wide readiness versus the proposed R1c page-ready protocol. The article uses the later corrected final PNG.
+
 Use case: scientific-educational
 Asset type: 16:9 beginner CUDA systems lesson infographic, 1672×941 landscape
 Primary request: Create a polished, technically exact Chinese teaching infographic comparing a stage-wide 64 KiB readiness gate with two page-ready 32 KiB gates inside a three-page canonical MegaKittens matvec proposal.

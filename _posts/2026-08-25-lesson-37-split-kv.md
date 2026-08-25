@@ -17,6 +17,8 @@ next_slug: lesson-38-dynamic-tail
 next_title: "Dynamic Tail：最后 2048 维为什么不该让 16 个 warp 都工作？"
 ---
 
+> **本课用词**：P1/P16 表示每个 KV head 被切成 1/16 个上下文 partition；partial 是一个 partition 的局部 attention 结果；GQA（Grouped-Query Attention）让多个 Q head 共享较少的 K/V head；LSE 是稳定 softmax 合并使用的 log-sum-exp。
+
 ## P1 为什么喂不饱 B200
 
 Llama-8B 有 8 个 KV head。若每个 KV head 只创建一个 attention task，那么一层只有 8 条并行任务。B200 有 148 个 SM，大量执行容量在等待。
@@ -64,4 +66,3 @@ P16 相比 P1，每层净增 `128` 条 scheduler instruction；32 层净增 `409
 - Reduction 必须保留稳定 softmax 数值协议。
 - 完整 megakernel 计时不能冒充 attention-only。
 - 长上下文强 winner 不代表短上下文也该选 P16。
-

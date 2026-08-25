@@ -17,6 +17,8 @@ next_slug: lesson-47-peak-live-resources
 next_title: "Peak-live：为什么资源不能把百分比相加？"
 ---
 
+> **本课用词**：resource manifest 是编译期资源需求清单；fail-closed 表示漏写能力声明时直接编译失败；JIT cache key 决定运行时编译结果能否复用；oracle 是手工构造、用于核对自动方案的参考实现。
+
 ## 为什么不能全局写死 allocator
 
 一个 physical megakernel 会把所有 dispatch case 编进同一个 entry。只要入口无条件构造 TMEM allocator，即使实际运行的 IType 不用 TMEM，CUBIN 仍携带分配协议和 entry metadata。
@@ -62,4 +64,3 @@ B/C 的 normalized SASS、资源与输出应等价；D 若误标为 0 必须编�
 ## 不要许诺 2 CTA
 
 manifest 只解决“不要申请不需要的 TMEM”。canonical Llama-1B 的 shared 与 register 仍各自限制 1 CTA/SM。资源能力系统本身可以在“正确、无稳定回退”时合入，但不能声称性能提升。
-

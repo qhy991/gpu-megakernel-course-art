@@ -17,6 +17,8 @@ next_slug: lesson-53-page-ready-r1c
 next_title: "三页以后还能流水吗？把 64 KiB 大门拆成两扇"
 ---
 
+> **本课用词**：depth 是同一类缓冲区能同时保留的轮次数；instruction slot、weight-input stage 和 output scratch slot 是三套独立循环结构；parity 是 mbarrier 用来区分相邻 epoch 的奇偶位。
+
 ## 三套彼此独立的 pipeline
 
 1. **Instruction pipeline = 2**：controller 同时维护相邻两条 instruction slot。
@@ -55,4 +57,3 @@ input depth 改成1后，LID3–6 从未使用，应最早释放；LID1/2 在最
 ## 最便宜的 falsifier
 
 先独立测试 `iters=1..7`，覆盖 phase 翻转与 stage reuse；UpGate 另测偶数 `2/4/6`。随后才跑完整 Attention/MLP island。
-

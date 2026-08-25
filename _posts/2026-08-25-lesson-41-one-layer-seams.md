@@ -17,6 +17,8 @@ next_slug: lesson-42-four-arm-evidence
 next_title: "四臂实验：怎样给 Island 一个公平位置？"
 ---
 
+> **本课用词**：canonical 指当前用于推导的 clean reference baseline；IType 是 Dispatcher 能执行的一类逻辑指令；seam 是候选切分边界；physical launch 指真正提交到 GPU 的一次 kernel 启动，不等同于一个算子名字。
+
 ## 先纠正“一个算子就是一个 kernel”
 
 canonical Llama-1B 一层有五个主要逻辑调用点：QKV、Attention、OProj、UpGate、DownProj。MatVecAdds 被 OProj 和 DownProj 两次复用；deterministic Down 内部还包含 partials 与 fixed reduction。
@@ -47,4 +49,3 @@ OProj → UpGate 只需要已有 global hidden，因此是最容易建立正确�
 新 kernel 会重建 register、shared pages、动态 semaphore 和 tensor allocator；global weights、KV cache、hidden、persistent internal buffer 仍存在。
 
 因此 physical cut 真正增加的是：launch/Graph node、global handoff、barrier reset 和新资源准入。它不会自动删除 global tensor，也不会自动降低 per-CTA shared memory。
-

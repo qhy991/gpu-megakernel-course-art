@@ -15,6 +15,8 @@ next_slug: lesson-37-split-kv
 next_title: "Split-KV：把长上下文注意力摊到更多 SM"
 ---
 
+> **本课用词**：Legacy Llama-8B 指历史实验分支中的 8B 模型实现，不是当前 clean canonical 基线；`matvec` 是矩阵向量乘；TMA 是把权重 tile 异步搬进 shared memory 的 Tensor Memory Accelerator；这里的 page 是 shared-memory 缓冲区的一段。
+
 ## 先从仓库里的真实形状开始
 
 Legacy Llama-8B 的 hidden dimension 是 4096。一次 matvec 权重输入可以看成 `16 × 4096 × BF16`，总计 **128 KiB**。
@@ -58,4 +60,3 @@ Legacy Llama-8B 的 hidden dimension 是 4096。一次 matvec 权重输入可以
 - 画清楚每个 warp 读取哪一段字节。
 - 区分 `arrived`、`finished` 与跨 instruction 的 page release。
 - 只在总工作保持不变时，把差异归因于 readiness 粒度。
-

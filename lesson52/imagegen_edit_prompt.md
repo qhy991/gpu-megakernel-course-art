@@ -1,3 +1,7 @@
+# Lesson 52 targeted image correction
+
+Purpose: correct the physical page counts in the generated Lesson 52 base image without changing the rest of the composition.
+
 Edit the most recent Lesson 52 infographic. Change only the shared-memory page diagrams in the three large panels; preserve every other element, text, color, timeline, footer, spacing, and 16:9 composition exactly.
 
 Required correction:

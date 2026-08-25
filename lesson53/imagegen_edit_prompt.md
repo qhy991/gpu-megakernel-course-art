@@ -1,3 +1,7 @@
+# Lesson 53 targeted image correction
+
+Purpose: correct one evidence-critical note in the generated base image while preserving all other audited elements.
+
 Use case: precise-object-edit
 Asset type: 16:9 scientific teaching infographic correction
 Input image: Image 1 is the edit target.

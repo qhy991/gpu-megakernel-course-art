@@ -1,5 +1,7 @@
 # Lesson 50 ImageGen prompt
 
+Purpose: generate the five-lock 2 CTA/SM teaching image. Exact wording and colors encode the evidence boundary; red marks current blockers, amber marks unmeasured proposals, and green marks only passed necessary checks.
+
 Create a polished 16:9 scientific educational infographic, exact canvas 1672×941, Simplified Chinese, dark navy blueprint background, crisp flat vector style, high contrast, no photorealism, no logos, no people. This is Lesson 50 in a beginner GPU course.
 
 TITLE at top, exact:

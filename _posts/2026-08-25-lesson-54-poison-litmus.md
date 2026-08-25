@@ -15,6 +15,8 @@ prev_slug: lesson-53-page-ready-r1c
 prev_title: "三页以后还能流水吗？把 64 KiB 大门拆成两扇"
 ---
 
+> **本课用词**：poison litmus 是先写入可识别毒值、再用严格握手暴露错误时序的小测试；mutant 是故意注入 READY_EARLY 或 ACK_EARLY 的错误实现；fault signature 是预注册的错误 warp 掩码或 epoch 值。
+
 ## 真实的一页怎样映射到 warp
 
 canonical N=2048 时，一个 32 KiB page 由两笔 16 KiB TMA 填充；4 个 local consumer warp 各读连续 8 KiB：
@@ -73,4 +75,3 @@ Phase73 的 relaxed direct 在短 20 次中幸存，但 resident Graph 已漂移
 poison、gate、trace、heartbeat 会改变资源和调度。因此 debug-litmus CUBIN 与 release-perf CUBIN 必须分别冻结 hash。
 
 任何把 debug latency 当性能，或用 release binary 运行缺少定向可观察性的 fault matrix，都应判无效。
-

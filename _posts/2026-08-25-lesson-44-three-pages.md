@@ -17,6 +17,8 @@ next_slug: lesson-45-tmem-lock
 next_title: "第三把锁：TMEM 为什么能让 occupancy 从 2 变 1？"
 ---
 
+> **本课用词**：LID 是 physical shared-memory page 的本地编号；input pipeline 保存轮转的权重输入，output pipeline 保存轮转的 partial 输出；scratch 是未归入主 page 的辅助 shared-memory 空间。
+
 ## 七页到底用在哪里
 
 canonical Llama-1B matvec 使用：
@@ -64,4 +66,3 @@ occupancy 一点没变，实验却被错误命名为“3-page arm”。
 ## 必须先做 R1a
 
 为了分离“pipeline depth 变浅”的性能代价和“page 数变少”的资源收益，实验应先做 depth1 但仍保留 7 页的 R1a，再做真正 3 页的 R1b。直接从 7页/3级跳到 3页/1级，无法知道差异来自哪一个变量。
-

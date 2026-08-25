@@ -17,13 +17,15 @@ next_slug: lesson-46-tmem-manifest
 next_title: "怎样让只有真正需要的 IType 才申请 TMEM？"
 ---
 
+> **本课用词**：TMEM（Tensor Memory）是 Blackwell 的独立片上 tensor 资源；`tcgen05.alloc/dealloc` 是它的显式分配／释放指令；allocator 是管理这段资源生命周期的代码对象；entry metadata 是 CUBIN 对 kernel 资源需求的声明。
+
 ## TMEM 是什么
 
 Blackwell Tensor Memory 是每 CTA/CTA-group 显式分配的片上资源。PTX 使用 `tcgen05.alloc` 申请列，结束时必须 `dealloc`。资源不足时 allocation 可以等待，因此它不仅是地址空间，也参与准入与生命周期。
 
 ## canonical 的意外事实
 
-current Llama-1B kernel 在入口无条件构造 `tensor_allocator<1,1>`，也就是每 CTA 申请 512 列 TMEM，生命周期从 persistent kernel 入口持续到退出。
+当前 canonical Llama-1B kernel 在入口无条件构造 `tensor_allocator<1,1>`，也就是每 CTA 申请 512 列 TMEM，生命周期从 persistent kernel 入口持续到退出。
 
 但 Llama-1B 的实际 attention/matvec 走传统 register `mma.sync`，IType 目录没有调用 `tensor_alloc.allocate`。`tensor_wait/finish` 只是 CTA-local shared mbarrier token，不是 TMEM data wait。
 
@@ -44,4 +46,3 @@ Legacy 8B 有一对匹配 binary：两者 block、register 和 shared 容量都�
 硬件允许中途 alloc/dealloc，但当前 allocator 的 C++ 作用域是整个 kernel。某条 instruction 的 `tensor_finish` 不会把 TMEM 还给 SM，也不会触发新 CTA 入场。
 
 与 shared page 一样，要区分“内容 token 已可复用”和“硬件准入资源已释放”。
-

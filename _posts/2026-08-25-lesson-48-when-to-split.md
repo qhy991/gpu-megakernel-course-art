@@ -17,6 +17,8 @@ next_slug: lesson-49-two-island-p0
 next_title: "两岛 P0：怎样把一个想法变成可证伪候选？"
 ---
 
+> **本课用词**：whole-boundary A/B 测量完整父路径，而不是只测被修改的小算子；global seam 是两个 kernel 通过全局内存交接状态的边界；release/acquire 是保证“先写数据、后发布完成信号”的内存序关系。
+
 ## Cut 的收益端
 
 物理切分可能带来：
@@ -57,4 +59,3 @@ LMHead helper 看起来资源更干净，但完整 forward 仍慢；后续还发
 6. 生产 workload buckets 没有不可接受回退。
 
 否则它应被标成 source proposal、research-positive 或 archive，而不是 winner。
-

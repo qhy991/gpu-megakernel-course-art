@@ -17,9 +17,11 @@ next_slug: lesson-44-three-pages
 next_title: "把 7 页改成 3 页，为什么 Shared Memory 可能一字节没降？"
 ---
 
+> **本课用词**：resource envelope 是一个 CTA 入场时必须一次满足的 shared memory、register、thread 与 TMEM 资源合同；exact CUBIN 是真正被测试的 GPU binary；occupancy API 只计算“资源上允许驻留几个 CTA”，不观察运行时行为。
+
 ## 当前 canonical 的资源包络
 
-clean c473 的默认 kernel 是 384 threads、12 warps，其中 8 个 consumer 与 4 个 service warp。源码配置推导：
+clean c473（课程使用的一份 canonical source snapshot 标识）的默认 kernel 是 384 threads、12 warps，其中 8 个 consumer 与 4 个 service warp。源码配置推导：
 
 - 7 个 32 KiB page；
 - dynamic shared `230400 B`；
@@ -63,4 +65,3 @@ Island B：再次占满 → 退出 → 释放
 `source geometry → exact CUBIN attrs → occupancy API → NCU/timeline → paired latency`
 
 Phase82 没有冻结 timed exact CUBIN、ptxas、SASS 与 NCU，因此不能拿后验重建物的资源数字冒充原实验制品。
-

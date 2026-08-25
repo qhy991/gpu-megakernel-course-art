@@ -17,6 +17,8 @@ next_slug: lesson-54-poison-litmus
 next_title: "怎样证明 READY/ACK 协议真的安全？"
 ---
 
+> **本课用词**：R1b 是已经把 input pipeline 缩为一层、物理 page 缩为三页的基线；R1c 只进一步拆细 READY/FINISHED；page-local 表示每个 32 KiB page 有自己的信号；ACK 是 consumer 完成读取后的复用确认。
+
 ## R1c 的唯一变量
 
 R1c-P0 必须相对正确的 R1b 比较，并保持：
@@ -69,4 +71,3 @@ output scratch 仍按 `i % 3` 选择槽，跨 instruction page token 又使用�
 ## 为什么 Lesson 36 只能作旁证
 
 Legacy 8B 的正结果也是 depth1，但它拆的是 `8 × 16 KiB / 2 warps`；R1c 是 `2 × 32 KiB / 4 warps`，TMA 聚合和消费者分组不同。因此它支持“readiness 粒度值得测”，不能迁移收益幅度。
-

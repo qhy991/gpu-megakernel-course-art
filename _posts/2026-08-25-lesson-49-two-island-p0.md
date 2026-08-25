@@ -17,6 +17,8 @@ next_slug: lesson-50-five-locks-two-cta
 next_title: "2 CTA/SM 要打开哪五把锁？"
 ---
 
+> **本课用词**：P0 表示第一版最小候选，不代表 production-ready；instruction 是 Dispatcher 消费的逻辑任务；Graph census 是对实际 CUDA Graph 节点和 kernel 路径的计数，用来证明测试确实跑到候选实现。
+
 ## 最小两岛怎么切
 
 自然 seam 选在 OProj → UpGate：
@@ -62,4 +64,3 @@ canonical deterministic schedule：
 - 若 Graph census 与预注册不符，path identity 失败；
 - 若 A/B 双顺序不过噪声门，性能假设失败；
 - 若只在 pos0 赢，不能升级为 production dispatch。
-

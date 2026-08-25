@@ -17,6 +17,8 @@ next_slug: lesson-41-one-layer-seams
 next_title: "一层 Llama 到底有几条切缝？"
 ---
 
+> **本课用词**：individual-op 表示每个逻辑算子使用独立 kernel；resident Graph 表示常驻 kernel 执行整张图；provider swap 是在相同 Graph 外壳中替换实现路径；island 是少量 physical kernel 组成的融合分区。
+
 ## 两个极端
 
 左端是 individual-op CUDA Graph：每个算子都有独立 kernel，资源容易专门化，但 launch、global handoff 和同步边界多。
@@ -53,4 +55,3 @@ Legacy 8B 把 LMHead 拆成 dedicated helper，即使 helper 自身没有 spill�
 - 不把另一个模型、shape 或 profiler 工件套过来。
 
 图中的 U 型曲线只是概念模型，不是实测曲线。当前 island 路线仍是 **PROPOSED · UNMEASURED**。
-

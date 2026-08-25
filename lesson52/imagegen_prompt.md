@@ -1,3 +1,7 @@
+# Lesson 52 ImageGen prompt
+
+Purpose: generate the base 16:9 teaching image used by Lesson 52. The later `imagegen_edit_prompt.md` corrects only the page diagrams; the article uses the corrected final PNG.
+
 Use case: scientific-educational
 Asset type: 16:9 beginner GPU systems course infographic, matching the visual language of Lesson 51
 Primary request: Explain exactly what the canonical Llama-1B Megakernel's seven 32-KiB shared-memory pages buy, and cleanly separate experiment R1a (reduce weight-input pipeline depth) from R1b (reduce physical pages). This is a source-audited proposal, not a performance result.

@@ -1,5 +1,7 @@
 # Lesson 54 — deterministic poison litmus infographic
 
+Purpose: generate the base diagnostic image for READY_EARLY and ACK_EARLY mutation tests. The later edit prompt records evidence-critical corrections applied to the final PNG.
+
 Create a polished 16:9 teaching infographic, 1672×941 pixels, for a beginner CUDA/Megakernel course. Use a dark navy engineering-blueprint background, crisp flat vector style, high contrast, restrained neon green for correct, red/orange for broken, cyan for data movement, and purple only for historical evidence. All text must be sharp and legible. Do not invent any performance number. This is a diagnostic proposal, not a measured optimization.
 
 Top title, exact Chinese:

@@ -17,6 +17,8 @@ next_slug: lesson-40-fusion-vs-islands
 next_title: "最大融合一定最好吗？从 Megakernel 到 Island"
 ---
 
+> **本课用词**：NCU 指 Nsight Compute；resident 是“已经住进 SM”，eligible 是“当前没有等待、可以被选”，issue 是“这一拍真的发出指令”；long scoreboard 与 MIO throttle 是 NCU 报告的等待原因，不是利用率百分比。
+
 ## 三个词不要混在一起
 
 1. **Resident**：warp 的 CTA 已被调度到 SM，寄存器和 shared memory 都已分配。
@@ -49,4 +51,3 @@ Legacy 8B P16 的 NCU 中，一个 640-thread CTA 占据一个 SM。20 个 warp 
 “occupancy 低，所以降寄存器一定更快”并不成立。降低寄存器可能提高 resident CTA 数，也可能破坏 ILP、增加 spill，最终变慢。
 
 正确问题是：当前关键路径是在等更多 resident warp，还是在等数据、barrier 或单条长依赖？
-

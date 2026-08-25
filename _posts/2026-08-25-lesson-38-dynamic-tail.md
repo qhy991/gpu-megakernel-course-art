@@ -17,6 +17,8 @@ next_slug: lesson-39-resident-eligible-issue
 next_title: "Resident、Eligible、Issue：31.25% occupancy 到底说明什么？"
 ---
 
+> **本课用词**：DownProj 是 MLP 把扩展维度投回 hidden dimension 的下投影；K-slice 是 reduction 维的一段；HMMA 是 Tensor Core 矩阵乘累加指令；bookkeeping 指不做数学运算、但必须完成的 barrier、semaphore 和资源归还工作。
+
 ## 先看切片
 
 Llama-8B 的 DownProj 默认 reduction split 是：
@@ -55,4 +57,3 @@ DRAM bytes 几乎不变，而 active cycles、HMMA、shared instruction 和 inst
 当前地址与归约逻辑只对默认 `[4096,4096,4096,2048]` 成立。scheduler 虽能构造其他字段组合，但没有 CUDA 地址/归约集成验证。
 
 所以它是 **Llama-8B 默认形状特化**，不能包装成通用 dynamic K-tail 算法。
-
