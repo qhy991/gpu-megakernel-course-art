@@ -14,11 +14,11 @@ permalink: /about/
     <p>建议先知道 CUDA 的 thread、warp、block 和 shared memory。其余专用词不作为前置要求：CTA 与 block 在本课程中同义；TMA 是异步 tensor 搬运机制；TMEM 是 Blackwell 的独立片上 tensor 资源；NCU 指 Nsight Compute。完整解释统一放在<a href="{{ '/glossary/' | relative_url }}">术语表</a>。</p>
     <h2>适合谁</h2>
     <ul><li>会写基础 CUDA，但第一次接触 persistent kernel。</li><li>能看懂 block、warp、shared memory，却不熟悉 TMA、mbarrier、TMEM。</li><li>正在做推理系统或 kernel 优化，希望建立严格的 benchmark contract。</li></ul>
-    <h2>为什么从第 36 课开始</h2>
-    <p>课号延续真实研究日志。第 36–54 课形成了一条独立、完整的进阶线：先从一个已经测过的 page-ready 优化进入，再逐层追问资源、调度、内存序和实验设计。更早课程会在证据整理完成后继续公开。</p>
+    <h2>完整学习路线</h2>
+    <p>课程现已完整公开第 1–54 课。第 1–10 课建立 GPU、Llama 数据流、融合边界与 Persistent Megakernel 的基础；第 11–35 课学习性能证据、同步、生命周期与 Ready-aware 调度；第 36–54 课进入真实 B200 优化、资源包络、TMEM 与双 CTA 实验。</p>
     <h2>怎样阅读每一课</h2>
     <ol><li>先读“要解决的问题”和“一句话结论”，确认本课边界。</li><li>看顶部证据状态；<strong>MEASURED</strong>、<strong>SOURCE-PROVEN</strong> 与 <strong>PROPOSED</strong> 的强度不同。</li><li>再看图，沿颜色区分当前事实、待测提案和已通过检查。</li><li>最后用正文末尾的检查表、失败条件或实验门复述结论。</li></ol>
-    <p>第 36–54 课建议顺序读。若只解决一个具体问题，也可从课程首页按标题跳转，但第 49–54 课默认读者已理解第 43–47 课的资源包络与生命周期。</p>
+    <p>第一次阅读建议从第 1 课顺序开始。若只解决一个具体问题，也可从课程首页按标题跳转，但进阶课程会默认读者已经理解前文的证据等级、数据发布与资源生命周期。</p>
     <h2>证据来源</h2>
     <p>课程区分 clean canonical source、历史 dirty snapshot、冻结报告、exact CUBIN/NCU 与设计提案。图上的 <strong>CURRENT</strong>、<strong>MEASURED</strong>、<strong>PROPOSED · UNMEASURED</strong> 不是装饰，而是结论的边界。</p>
   </div>

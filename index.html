@@ -1,7 +1,7 @@
 ---
 layout: default
 title: GPU Megakernel 实战课
-description: 19 篇面向新手的 GPU Megakernel 课程，从页流水、Split-KV 和资源驻留一直讲到可证伪实验。
+description: 54 篇面向新手的 GPU Megakernel 课程，从 GPU 基础、Llama 数据流一直讲到资源驻留与可证伪实验。
 image: /assets/images/course-hero.png
 ---
 <section class="course-hero shell">
@@ -10,15 +10,15 @@ image: /assets/images/course-hero.png
     <div class="hero-copy">
       <p class="eyebrow">GPU SYSTEMS · BEGINNER COURSE · B200</p>
       <h1>从一个大 Kernel，<br>学会读懂整张 <em>GPU 执行图。</em></h1>
-      <p>这不是技巧清单，而是一条证据链：先理解 Persistent Kernel，再看页流水、Split-KV、资源封套、TMEM、CTA 驻留，最后学会设计能推翻自己的实验。</p>
-      <div class="hero-actions"><a class="button button-primary" href="{{ '/lessons/lesson-36-page-ready/' | relative_url }}">从第 36 课开始</a><a class="button" href="{{ '/evidence/' | relative_url }}">先读证据规则</a></div>
+      <p>这不是技巧清单，而是一条完整学习线：先建立 GPU 与 Llama 数据流直觉，再进入 Persistent Kernel、性能证据、页流水、资源封套、TMEM 与 CTA 驻留，最后学会设计能推翻自己的实验。</p>
+      <div class="hero-actions"><a class="button button-primary" href="{{ '/lessons/gpu-kernel-mental-model/' | relative_url }}">从第 1 课开始</a><a class="button" href="{{ '/evidence/' | relative_url }}">先读证据规则</a></div>
     </div>
   </div>
-  <div class="stat-strip" data-reveal><div><strong>19</strong><span>篇完整课程</span></div><div><strong>19</strong><span>张 16:9 图解</span></div><div><strong>B200</strong><span>主要硬件语境</span></div><div><strong>0</strong><span>未经标注的性能结论</span></div></div>
+  <div class="stat-strip" data-reveal><div><strong>54</strong><span>篇完整课程</span></div><div><strong>54</strong><span>张 16:9 图解</span></div><div><strong>B200</strong><span>主要硬件语境</span></div><div><strong>0</strong><span>未经标注的性能结论</span></div></div>
 </section>
 
 <section class="section shell">
-  <div class="section-heading" data-reveal><div><p class="section-index">COURSE MAP</p><h2>四个阶段，建立<br>一套可迁移的直觉。</h2></div><p>课号延续研究日志。当前公开的是第 36–54 课：从真实 B200 Megakernel 证据切入，把“为什么快、为什么错、为什么不能下结论”放在同一条学习线上。</p></div>
+  <div class="section-heading" data-reveal><div><p class="section-index">COURSE MAP</p><h2>十个阶段，建立<br>一套可迁移的直觉。</h2></div><p>第 1–35 课从 GPU 基础、源码、调度与实验方法逐步搭建心智模型；第 36–54 课进入真实 B200 Megakernel 的资源、并发与证据审计。</p></div>
 
   {% assign lessons = site.posts | sort: 'lesson' %}
   {% assign current_stage = '' %}

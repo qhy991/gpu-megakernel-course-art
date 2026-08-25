@@ -11,6 +11,8 @@ image: /lesson36/legacy8b_page_ready_16x9-v2.png
 tags: [TMA, Shared Memory, Page Pipeline, Legacy 8B]
 read_time: 10
 status: "MEASURED · LEGACY DIRTY SOURCE"
+prev_slug: experiment-envelope
+prev_title: "实验档案袋：怎样保存一个可复核结论"
 next_slug: lesson-37-split-kv
 next_title: "Split-KV：把长上下文注意力摊到更多 SM"
 ---

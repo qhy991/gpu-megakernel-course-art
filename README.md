@@ -1,11 +1,11 @@
-# GPU Megakernel 实战课（Lessons 36–54）
+# GPU Megakernel 实战课（Lessons 1–54）
 
 这是一套面向 GPU/CUDA 初学者的中文博客课程。它以 B200/Blackwell 上的
 Megakernel 研究为背景，从“一个 warp 为什么在等”讲到“怎样用负控证明并发
 协议真的安全”。每课都有完整正文、16:9 图解、证据状态和前后课导航。
 
 - **在线课程：** <https://qhy991.github.io/gpu-megakernel-course-art/>
-- **第一次阅读：** 从[第 36 课](https://qhy991.github.io/gpu-megakernel-course-art/lessons/lesson-36-page-ready/)顺序开始
+- **第一次阅读：** 从[第 1 课](https://qhy991.github.io/gpu-megakernel-course-art/lessons/gpu-kernel-mental-model/)顺序开始
 - **遇到缩写：** 查[术语表](https://qhy991.github.io/gpu-megakernel-course-art/glossary/)
 - **遇到性能数字：** 先读[证据规则](https://qhy991.github.io/gpu-megakernel-course-art/evidence/)
 
@@ -18,17 +18,17 @@ Megakernel 研究为背景，从“一个 warp 为什么在等”讲到“怎样
 本课程的 `page` 指 shared-memory 缓冲区中的一段，不是操作系统虚拟内存页；
 `CTA` 与 CUDA thread block 同义；`island` 指少量物理 kernel 组成的融合分区。
 
-## 19 课在讲什么
+## 54 课在讲什么
 
-| 阶段 | 课次 | 学完后应能回答 |
+| 学习段 | 课次 | 学完后应能回答 |
 | --- | --- | --- |
-| 一：看懂真实瓶颈 | 36–39 | page-ready 为什么缩短等待？Split-KV 为什么增加并行任务？resident、eligible、issue 有何区别？ |
-| 二：找到融合边界 | 40–43 | 最大融合为何不总是最好？物理 cut 保存什么状态？为什么切开不会自动降低资源？ |
-| 三：审计驻留资源 | 44–48 | shared memory、register、TMEM 如何共同限制 CTA/SM？什么时候切分才值得？ |
-| 四：设计可证伪实验 | 49–54 | 怎样逐项打开 2 CTA/SM 的五把锁？如何用 READY/ACK poison litmus 杀死错误协议？ |
+| 基础心智模型 | 1–10 | GPU 如何执行？token 怎样流过 Llama？融合、Graph 与 Persistent Kernel 的边界在哪里？ |
+| 性能证据与真实优化 | 11–20 | 怎样连接 NCU、PTX、SASS 和原始实验档案？Page-ready、Split-KV 与 Dynamic Tail 各解决什么？ |
+| 同步、生命周期与调度 | 21–35 | release/acquire、epoch、ACK 和驻留死锁如何闭合？怎样把 barrier 编译成 Ready 调度？ |
+| B200 资源与融合边界 | 36–48 | 为什么最大融合不总是最好？shared memory、register、TMEM 如何共同限制 CTA/SM？ |
+| 可证伪的双 CTA 实验 | 49–54 | 怎样逐项打开 2 CTA/SM 的五把锁？如何用 READY/ACK poison litmus 杀死错误协议？ |
 
-课号延续真实研究日志，所以从 36 开始；第 36–54 课本身构成独立完整的一卷，
-不依赖尚未发布的前 35 课。
+第 1–35 课已从原始课程记录恢复，第 36–54 课保留原有研究日志编号；两部分现已接成连续的 54 课学习路线。
 
 ## 怎样读一篇课文
 
@@ -56,11 +56,11 @@ CUDA Event 的 model-forward 时间不等于 HTTP serving wall；occupancy query
 ## 仓库结构
 
 ```text
-_posts/                  19 篇课程正文
+_posts/                  54 篇课程正文
 _layouts/                Jekyll 页面骨架
 assets/css, assets/js/   课程站样式与交互
 assets/images/           课程总封面与生成提示词
-lesson36/ ... lesson54/  每课的 16:9 图片；部分目录包含生成/修订提示词
+lesson01/ ... lesson54/  每课的 16:9 图片；部分目录包含生成/修订提示词
 about.md                 适合人群与阅读路线
 evidence.md              证据标签和性能结论检查表
 glossary.md              全课程统一术语表
