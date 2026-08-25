@@ -1,0 +1,16 @@
+title: GPU Megakernel 实战课
+description: 从 Persistent Kernel、TMA、Shared Memory、TMEM 到可证伪性能实验的中文课程。
+url: https://qhy991.github.io
+baseurl: /gpu-megakernel-course-art
+lang: zh-CN
+timezone: Asia/Shanghai
+permalink: /lessons/:slug/
+markdown: kramdown
+highlighter: rouge
+exclude:
+  - README.md
+  - imagegen_prompt.md
+  - imagegen_edit_prompt.md
+  - Gemfile
+  - Gemfile.lock
+

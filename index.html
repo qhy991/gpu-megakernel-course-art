@@ -1,0 +1,40 @@
+---
+layout: default
+title: GPU Megakernel 实战课
+description: 19 篇面向新手的 GPU Megakernel 课程，从页流水、Split-KV 和资源驻留一直讲到可证伪实验。
+image: /assets/images/course-hero.png
+---
+<section class="course-hero shell">
+  <div class="hero-frame">
+    <img src="{{ '/assets/images/course-hero.png' | relative_url }}" alt="GPU Megakernel 课程封面：persistent control hall、页流水、TMA 与双 CTA">
+    <div class="hero-copy">
+      <p class="eyebrow">GPU SYSTEMS · BEGINNER COURSE · B200</p>
+      <h1>从一个大 Kernel，<br>学会读懂整张 <em>GPU 执行图。</em></h1>
+      <p>这不是技巧清单，而是一条证据链：先理解 Persistent Kernel，再看页流水、Split-KV、资源封套、TMEM、CTA 驻留，最后学会设计能推翻自己的实验。</p>
+      <div class="hero-actions"><a class="button button-primary" href="{{ '/lessons/lesson-36-page-ready/' | relative_url }}">从第 36 课开始</a><a class="button" href="{{ '/evidence/' | relative_url }}">先读证据规则</a></div>
+    </div>
+  </div>
+  <div class="stat-strip" data-reveal><div><strong>19</strong><span>篇完整课程</span></div><div><strong>19</strong><span>张 16:9 图解</span></div><div><strong>B200</strong><span>主要硬件语境</span></div><div><strong>0</strong><span>未经标注的性能结论</span></div></div>
+</section>
+
+<section class="section shell">
+  <div class="section-heading" data-reveal><div><p class="section-index">COURSE MAP</p><h2>四个阶段，建立<br>一套可迁移的直觉。</h2></div><p>课号延续研究日志。当前公开的是第 36–54 课：从真实 B200 Megakernel 证据切入，把“为什么快、为什么错、为什么不能下结论”放在同一条学习线上。</p></div>
+
+  {% assign lessons = site.posts | sort: 'lesson' %}
+  {% assign current_stage = '' %}
+  {% for post in lessons %}
+    {% if post.stage != current_stage %}
+      {% unless current_stage == '' %}</div>{% endunless %}
+      {% assign current_stage = post.stage %}
+      <div class="stage-banner" data-reveal><strong>{{ post.stage }}</strong><span>{{ post.stage_description }}</span></div>
+      <div class="lesson-grid-cards">
+    {% endif %}
+      <a class="course-card" href="{{ post.url | relative_url }}" data-reveal>
+        <img src="{{ post.image | relative_url }}" alt="第 {{ post.lesson }} 课：{{ post.title }}" loading="lazy" width="1672" height="941">
+        <div class="course-card-body"><div class="course-card-meta"><span>LESSON {{ post.lesson }}</span><span>{{ post.read_time }} MIN</span></div><h3>{{ post.title }}</h3><p>{{ post.description }}</p></div>
+      </a>
+    {% if forloop.last %}</div>{% endif %}
+  {% endfor %}
+</section>
+
+<section class="section shell"><div class="stage-banner" data-reveal><div><p class="section-index">HOW TO READ</p><strong>建议顺序阅读，也允许按问题跳读。</strong></div><a class="button" href="{{ '/about/' | relative_url }}">查看课程路线</a></div></section>

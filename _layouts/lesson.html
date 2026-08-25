@@ -1,0 +1,25 @@
+---
+layout: default
+---
+<article class="lesson">
+  <header class="lesson-hero shell">
+    <div class="lesson-kicker"><span>LESSON {{ page.lesson }}</span><span>{{ page.stage }}</span><span>{{ page.status | default: 'EVIDENCE-BOUNDED' }}</span></div>
+    <h1>{{ page.title }}</h1>
+    <p class="lesson-dek">{{ page.description }}</p>
+    <div class="lesson-meta"><span>{{ page.read_time }} 分钟</span><span>{{ page.level | default: '新手友好' }}</span><span>更新于 {{ page.date | date: '%Y-%m-%d' }}</span></div>
+  </header>
+  <div class="lesson-visual shell"><img src="{{ page.image | relative_url }}" alt="第 {{ page.lesson }} 课：{{ page.title }}" width="1672" height="941"></div>
+  <div class="lesson-grid shell">
+    <aside class="lesson-aside">
+      <div class="aside-card"><span>本课一句话</span><strong>{{ page.takeaway }}</strong></div>
+      <div class="aside-card"><span>关键词</span><div class="tag-list">{% for tag in page.tags %}<b>{{ tag }}</b>{% endfor %}</div></div>
+      <a class="aside-link" href="{{ '/evidence/' | relative_url }}">为什么要标证据边界？ ↗</a>
+    </aside>
+    <div class="prose">{{ content }}</div>
+  </div>
+  <nav class="lesson-nav shell" aria-label="课程翻页">
+    {% if page.prev_slug %}<a href="{{ '/lessons/' | append: page.prev_slug | append: '/' | relative_url }}"><span>← 上一课</span><strong>{{ page.prev_title }}</strong></a>{% else %}<span></span>{% endif %}
+    {% if page.next_slug %}<a class="next" href="{{ '/lessons/' | append: page.next_slug | append: '/' | relative_url }}"><span>下一课 →</span><strong>{{ page.next_title }}</strong></a>{% endif %}
+  </nav>
+</article>
+
