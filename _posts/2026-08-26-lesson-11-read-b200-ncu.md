@@ -7,6 +7,9 @@ stage: "基础三 · 学会审计性能证据"
 stage_description: "从 NCU、PTX、SASS、实验卡和原始归档建立可复核的性能结论。"
 description: "按 duration、occupancy、eligible warp、stall 和源码位置逐层诊断 one-layer Megakernel。"
 takeaway: "Resident warp 多不等于能发射；报告必须回到等待位置。"
+beginner_question: "工人明明很多，为什么机器仍可能闲着？"
+beginner_analogy: "工人都在厂里不等于都能开工，他们可能正等材料或等信号。"
+beginner_skip: "可先忽略全部 stall 分类和冷门计数器。"
 image: /lesson11/lesson-11.png
 tags: [B200, NCU, Eligible Warps, Stalls]
 read_time: 17

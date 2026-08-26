@@ -7,6 +7,9 @@ stage: "基础三 · 学会审计性能证据"
 stage_description: "从 NCU、PTX、SASS、实验卡和原始归档建立可复核的性能结论。"
 description: "连接源码、PTX、SASS 与 profiler，解释寄存器 spill、local load/store 和最小证伪实验。"
 takeaway: "只有 exact binary 能把源码解释和硬件指令闭合起来。"
+beginner_question: "为什么看过源码还要追到机器指令？"
+beginner_analogy: "菜谱写的是计划，厨师实际做出的动作才是机器真正执行的内容。"
+beginner_skip: "可先忽略指令编码和反汇编语法。"
 image: /lesson12/lesson-12.png
 tags: [PTX, SASS, CUBIN, Register Spill]
 read_time: 19

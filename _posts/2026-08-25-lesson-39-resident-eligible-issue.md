@@ -7,6 +7,9 @@ stage: "阶段一 · 看懂真实执行瓶颈"
 stage_description: "从已经测过的 Legacy 8B 优化出发，建立 page、warp、TMA 与等待粒度的直觉。"
 description: "把“住在 SM 上”“现在可以发射”“这一拍真的发射”分开，避免误读 NCU。"
 takeaway: "驻留只是入场券，eligible 才是随时能跑，issue 才是真正干活。"
+beginner_question: "工位都坐了人，为什么机器仍可能没在干活？"
+beginner_analogy: "员工到了办公室只是“在场”；材料齐了才“能做”；真正拿到工具才算“开工”。"
+beginner_skip: "可先忽略 occupancy、NCU 等待项和 warp 上限。"
 image: /lesson39/legacy8b_resident_eligible_issue_16x9-v2.png
 tags: [Occupancy, Eligible Warps, Issue Active, NCU]
 read_time: 10

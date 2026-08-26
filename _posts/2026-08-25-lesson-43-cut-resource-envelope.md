@@ -7,6 +7,9 @@ stage: "阶段二 · 找到真正值得保留的融合边界"
 stage_description: "区分物理融合、Graph provider swap 与概念 island，不把不同实验合同拼成一个故事。"
 description: "物理 cut 会释放上一 kernel 的资源，但下一 kernel 若继承同一 Config，仍会重新申请同样的大包络。"
 takeaway: "切开会重置状态，不会自动 right-size 资源。"
+beginner_question: "切成两个 kernel，资源占用就会自动减半吗？"
+beginner_analogy: "把旅程分成两段，不代表行李自动变少；若两段都按同一清单订车，仍会预留同样空间。"
+beginner_skip: "可先忽略 shared、寄存器字节数和 occupancy API。"
 image: /lesson43/cut_resets_state_not_resource_envelope_16x9.png
 tags: [Shared Memory, Registers, Occupancy, Physical Cut]
 read_time: 10

@@ -7,6 +7,9 @@ stage: "进阶二 · 把依赖编译成可证伪系统"
 stage_description: "把 barrier 转成 Ready 状态机，再用 poison、exact binary 和 manifest 闭合证据。"
 description: "把源码、编译参数、binary hash、正确性、profile 和计时装进统一 manifest。"
 takeaway: "有 SHA 只证明文件身份；完整档案才能证明结论身份。"
+beginner_question: "怎样保存一次实验，才能让别人复查结论？"
+beginner_analogy: "像整理案件档案：样品编号只是起点，还要保存过程、条件和检测结果。"
+beginner_skip: "可先忽略 manifest 字段格式和哈希工具命令。"
 image: /lesson35/lesson-35.png
 tags: [Manifest, Reproducibility, Hash, Evidence]
 read_time: 8

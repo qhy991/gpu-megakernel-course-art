@@ -7,6 +7,9 @@ stage: "基础一 · 建立执行边界与性能直觉"
 stage_description: "先看懂 GPU、Llama 数据流、性能报告和研究结论的边界。"
 description: "把研究成果整理成 30 秒版本、完整叙事、证据边界和常见追问，避免把局部结果说成全系统结论。"
 takeaway: "最可信的叙事同时讲清正例、负例和不能外推的范围。"
+beginner_question: "怎样把优化成果讲得可信又不夸大？"
+beginner_analogy: "像汇报实验，既说哪里有效，也说哪里无效、结论适用于哪里。"
+beginner_skip: "可先忽略报告排版和术语润色，先守住证据边界。"
 image: /lesson05/lesson-05.png
 tags: [Research Story, Evidence, Selective Fusion, Communication]
 read_time: 12

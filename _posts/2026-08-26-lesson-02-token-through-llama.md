@@ -7,6 +7,9 @@ stage: "基础一 · 建立执行边界与性能直觉"
 stage_description: "先看懂 GPU、Llama 数据流、性能报告和研究结论的边界。"
 description: "沿 RMSNorm、QKV、RoPE、KV Cache、Attention 和 MLP 追踪 decode 数据流，找到真正昂贵的交接边。"
 takeaway: "先画清 token 的数据流，才知道哪些边值得融合。"
+beginner_question: "模型生成一个字，数据要经过哪些步骤？"
+beginner_analogy: "像包裹沿流水线经过验货、加工和封装，token 也逐层变换。"
+beginner_skip: "可先忽略矩阵尺寸和每个算子的公式。"
 image: /lesson02/lesson-02.png
 tags: [Llama, Decode, Attention, KV Cache]
 read_time: 13

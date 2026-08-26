@@ -7,6 +7,9 @@ stage: "基础一 · 建立执行边界与性能直觉"
 stage_description: "先看懂 GPU、Llama 数据流、性能报告和研究结论的边界。"
 description: "按计时边界、资源准入、warp 可发射性和等待原因阅读 GPU 报告，避免被单个漂亮指标误导。"
 takeaway: "先确认秒表和执行路径，再解释 profiler 指标。"
+beginner_question: "GPU 性能报告里，第一眼该看什么？"
+beginner_analogy: "像看体检报告先核对姓名和采样条件，再看异常指标。"
+beginner_skip: "可先忽略每个 NCU 缩写和计数器定义。"
 image: /lesson03/lesson-03.png
 tags: [NCU, Latency, Throughput, Profiling]
 read_time: 17

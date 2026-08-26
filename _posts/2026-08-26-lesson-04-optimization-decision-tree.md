@@ -7,6 +7,9 @@ stage: "基础一 · 建立执行边界与性能直觉"
 stage_description: "先看懂 GPU、Llama 数据流、性能报告和研究结论的边界。"
 description: "把 launch、并行度、数据交接、同步和资源压力组织成一棵可执行诊断树。"
 takeaway: "每次只针对证据指向的瓶颈选择优化手段。"
+beginner_question: "遇到程序慢，应该先优化哪里？"
+beginner_analogy: "修堵车要先找到真正塞住的路口，不必把每条路都拓宽。"
+beginner_skip: "可先忽略具体 CUDA 指令和参数组合。"
 image: /lesson04/lesson-04.png
 tags: [Decision Tree, Critical Path, A/B Testing, Optimization]
 read_time: 16

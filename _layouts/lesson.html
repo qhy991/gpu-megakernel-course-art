@@ -17,9 +17,14 @@ layout: default
       <a class="aside-link" href="{{ '/evidence/' | relative_url }}">为什么要标证据边界？ ↗</a>
     </aside>
     <div class="prose">
-      <section class="lesson-orientation" aria-label="本课阅读目标">
-        <h2>先把本课问题说清楚</h2>
-        <p><strong>要解决的问题：</strong>{{ page.description }}</p>
+      <section class="lesson-orientation" aria-label="零基础导读">
+        <h2>零基础先看这里</h2>
+        <p><strong>它在解决什么：</strong>{{ page.beginner_question }}</p>
+        <p><strong>把它想成：</strong>{{ page.beginner_analogy }}</p>
+        <p><strong>这次先不用懂：</strong>{{ page.beginner_skip }}</p>
+      </section>
+      <section class="lesson-contract" aria-label="本课目标与证据">
+        <h2>本课目标与证据边界</h2>
         <p><strong>读完应能复述：</strong>{{ page.takeaway }}</p>
         <p><strong>证据状态：</strong>{{ page.status | default: 'EVIDENCE-BOUNDED' }}。这个标签说明本课哪些内容已经测量、哪些仅由源码支持、哪些仍是待验证设计；具体规则见<a href="{{ '/evidence/' | relative_url }}">证据规则</a>。</p>
       </section>

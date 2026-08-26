@@ -7,6 +7,9 @@ stage: "基础一 · 建立执行边界与性能直觉"
 stage_description: "先看懂 GPU、Llama 数据流、性能报告和研究结论的边界。"
 description: "用厨房类比建立 GPU、SM、CTA、warp、kernel、CUDA Graph 与 Megakernel 的第一张心智地图。"
 takeaway: "Megakernel 的价值来自减少真实边界成本，不来自 kernel 数量本身。"
+beginner_question: "GPU 为什么适合同时做许多计算？"
+beginner_analogy: "GPU 像大厨房，SM 是工位，CTA 是被分到工位的小队。"
+beginner_skip: "可先忽略 warp 调度与各级存储的精确参数。"
 image: /lesson01/lesson-01.png
 tags: [CUDA, Kernel, Megakernel, Persistent Kernel]
 read_time: 12

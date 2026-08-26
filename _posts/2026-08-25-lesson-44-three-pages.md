@@ -7,6 +7,9 @@ stage: "阶段三 · 打开 2 CTA 驻留的五把锁"
 stage_description: "逐项审计 shared memory、register、TMEM、grid supply 与 worker identity。"
 description: "canonical 的 scratch 会吃掉删页留下的空间；真正三页必须同时缩短 input pipeline 并固定 scratch budget。"
 takeaway: "删掉对象不等于缩小 allocation envelope。"
+beginner_question: "从七页减到三页，为什么内存可能没减少？"
+beginner_analogy: "撤掉几层货架后，杂物可能摊满空地；只有同时限制杂物区，房间才真的腾出来。"
+beginner_skip: "可先忽略 LID 编号、页偏移和 scratch 字节数。"
 image: /lesson44/three_pages_are_not_four_empty_boxes_16x9.png
 tags: [Page Count, Scratch, Input Pipeline, Shared Memory]
 read_time: 11

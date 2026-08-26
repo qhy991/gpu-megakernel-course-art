@@ -7,6 +7,9 @@ stage: "进阶二 · 把依赖编译成可证伪系统"
 stage_description: "把 barrier 转成 Ready 状态机，再用 poison、exact binary 和 manifest 闭合证据。"
 description: "设计毒值、延迟门和故障签名，让缺失 TMA 等待或 release/acquire 的错误稳定暴露。"
 takeaway: "正例全绿不够；错误实现必须被测试稳定杀死。"
+beginner_question: "偶尔才出现的同步错误，怎样让它稳定暴露？"
+beginner_analogy: "像在漏水处撒荧光粉并加压；只要管道有缝，痕迹就更容易被看见。"
+beginner_skip: "可先忽略毒值选择、延迟门参数和 TMA 指令。"
 image: /lesson32/lesson-32.png
 tags: [Poison, Mutation Test, TMA, Correctness]
 read_time: 8

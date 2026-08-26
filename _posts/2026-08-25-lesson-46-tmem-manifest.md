@@ -7,6 +7,9 @@ stage: "阶段三 · 打开 2 CTA 驻留的五把锁"
 stage_description: "逐项审计 shared memory、register、TMEM、grid supply 与 worker identity。"
 description: "设计 fail-closed 的 kernel resource manifest：Llama-1B 声明 0 列，真正 tcgen05 IType 显式声明 256/512 列。"
 takeaway: "资源能力必须由编译期合同声明，漏标要编译失败。"
+beginner_question: "怎样只让真正需要的任务预订专用空间？"
+beginner_analogy: "每种任务先交资源购物清单，再由编译器汇总；漏写必需品就拒绝开工。"
+beginner_skip: "可先忽略 TMEM、Python 类型和 JIT 缓存键。"
 image: /lesson46/tmem_capability_manifest_16x9.png
 tags: [Resource Manifest, IType, Fail-closed, JIT]
 read_time: 12

@@ -7,6 +7,9 @@ stage: "进阶一 · 正确性、生命周期与调度"
 stage_description: "处理 release/acquire、epoch、驻留死锁和 Ready-aware 调度。"
 description: "解释 instruction ring 重用时的 epoch、ABA、ACK 和 backpressure，避免新旧代混淆。"
 takeaway: "Ready 只证明本代可读，ACK 才保护槽位何时可复用。"
+beginner_question: "同一个存储位置反复使用时，怎样分清新旧数据？"
+beginner_analogy: "只写“包裹已到”不够，还要写第几批，并等收件确认后才能清空货架。"
+beginner_skip: "可先忽略 ABA 名称、epoch 位宽和环形槽布局。"
 image: /lesson22/lesson-22.png
 tags: [Epoch, ABA, Ring Buffer, ACK]
 read_time: 8

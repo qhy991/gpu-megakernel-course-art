@@ -7,6 +7,9 @@ stage: "进阶二 · 把依赖编译成可证伪系统"
 stage_description: "把 barrier 转成 Ready 状态机，再用 poison、exact binary 和 manifest 闭合证据。"
 description: "用真实运行的 CPU 状态机证明 Ready-first 调度即使只有一个 worker 也能推进，而 claim-then-wait 会死锁。"
 takeaway: "活性来自始终调度 Ready 工作，不来自假设所有角色同时驻留。"
+beginner_question: "只有一个执行者时，复杂任务为什么仍能向前推进？"
+beginner_analogy: "一个厨师也能完成整桌菜，只要每次都选当前材料已齐的下一步。"
+beginner_skip: "可先忽略 CPU 状态机代码和 CUDA 移植细节。"
 image: /lesson30/lesson-30.png
 tags: [CPU Model, DAG, Liveness, Scheduler]
 read_time: 8

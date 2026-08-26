@@ -7,6 +7,9 @@ stage: "阶段四 · 用受控实验替代性能故事"
 stage_description: "把资源、工作供给、内存序和 benchmark contract 拆成可以逐项推翻的实验。"
 description: "以 Attention island + MLP island 为例，冻结工作量、seam、resource manifest 与失败条件。"
 takeaway: "先写清候选怎样失败，再开始实现。"
+beginner_question: "怎样把“两段会更快”变成能验证的方案？"
+beginner_analogy: "比赛前先写清路线、计时方法和淘汰条件；跑完后才知道想法是否真的成立。"
+beginner_skip: "可先忽略 launch 数量、CUBIN 和 Graph census 实现。"
 image: /lesson49/two_island_falsifiable_p0_16x9.png
 tags: [Two Islands, P0, Falsifiability, Llama-1B]
 read_time: 12

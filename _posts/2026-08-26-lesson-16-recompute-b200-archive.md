@@ -7,6 +7,9 @@ stage: "基础三 · 学会审计性能证据"
 stage_description: "从 NCU、PTX、SASS、实验卡和原始归档建立可复核的性能结论。"
 description: "从 TASK、raw JSON、gate 日志到 RESULT 逆向复算一次真实 B200 归档，检查 WIN 是否由原始数据支持。"
 takeaway: "报告是结论入口，原始工件才是裁判。"
+beginner_question: "为什么不能直接相信汇总报告里的数字？"
+beginner_analogy: "像核对账单，要回看小票和计算过程，不能只看最后总额。"
+beginner_skip: "可先忽略全部 profiler 指标，先核对原始计时和程序版本。"
 image: /lesson16/lesson-16.png
 tags: [Archive Audit, Raw Data, Gate, B200]
 read_time: 10

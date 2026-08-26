@@ -7,6 +7,9 @@ stage: "进阶二 · 把依赖编译成可证伪系统"
 stage_description: "把 barrier 转成 Ready 状态机，再用 poison、exact binary 和 manifest 闭合证据。"
 description: "把 poison 实验拆成 Host 准入、共享状态、Producer、Consumer 和 ACK 五层伪代码。"
 takeaway: "Litmus 必须锁死执行顺序，才能区分真正的同步保证与偶然成功。"
+beginner_question: "怎样用最小实验确认两个执行者真的同步正确？"
+beginner_analogy: "像实验室控制变量：固定交接顺序，再故意拆掉安全锁，看错误是否必然出现。"
+beginner_skip: "可先忽略伪代码的缓冲区布局和启动参数。"
 image: /lesson33/lesson-33.png
 tags: [Litmus, Two CTA, Pseudocode, Memory Model]
 read_time: 10

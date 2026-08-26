@@ -7,6 +7,9 @@ stage: "基础三 · 学会审计性能证据"
 stage_description: "从 NCU、PTX、SASS、实验卡和原始归档建立可复核的性能结论。"
 description: "从真实 decode-floor 归因区分可见耗时、可消除耗时与 Amdahl 上限。"
 takeaway: "Profiler 中显眼的 kernel 不等于可以被完整删除的时间。"
+beginner_question: "为什么最耗时的 kernel 不一定最值得融合？"
+beginner_analogy: "账单中最大的一项不代表能整项免单，真正可省的常常只是一部分。"
+beginner_skip: "可先忽略 Amdahl 定律的正式推导。"
 image: /lesson17/lesson-17.png
 tags: [Attribution, Amdahl, Kernel Sum, Wall Time]
 read_time: 14

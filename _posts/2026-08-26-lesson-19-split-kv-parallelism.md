@@ -7,6 +7,9 @@ stage: "基础四 · 三个真实优化机制"
 stage_description: "用 Page-ready、Split-KV 和 Dynamic Tail 看懂等待、并行度与冗余工作。"
 description: "解释长上下文 attention 的任务供给不足、16 路 partition 和稳定 partial reduction。"
 takeaway: "Split-KV 用额外归并换取足够的 SM 并行任务。"
+beginner_question: "为什么要把一个很长的注意力任务拆成许多小份？"
+beginner_analogy: "像把几箱大货拆成许多小包，更多人能同时搬；搬完后再把结果汇总。"
+beginner_skip: "可先忽略 GQA 分组和 partial reduction 的具体公式。"
 image: /lesson19/lesson-19.png
 tags: [Split-KV, Attention, GQA, Parallelism]
 read_time: 14

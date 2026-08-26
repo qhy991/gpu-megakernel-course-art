@@ -7,6 +7,9 @@ stage: "阶段一 · 看懂真实执行瓶颈"
 stage_description: "从已经测过的 Legacy 8B 优化出发，建立 page、warp、TMA 与等待粒度的直觉。"
 description: "从每个 KV head 一条任务扩展到 16 个 partition，再用稳定 LSE reduction 合并结果。"
 takeaway: "长上下文慢，不一定是算得多，也可能是并行任务太少。"
+beginner_question: "为什么把一份长任务切开，反而可能更快？"
+beginner_analogy: "只有八份作业却有很多工人；把作业拆成小段，大家能同时做，最后再汇总。"
+beginner_skip: "可先忽略 GQA、LSE 公式和 partition 数值。"
 image: /lesson37/legacy8b_split_kv_16x9.png
 tags: [Attention, Split-KV, Reduction, GQA]
 read_time: 11

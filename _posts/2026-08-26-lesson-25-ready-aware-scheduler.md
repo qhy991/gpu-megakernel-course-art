@@ -7,6 +7,9 @@ stage: "进阶一 · 正确性、生命周期与调度"
 stage_description: "处理 release/acquire、epoch、驻留死锁和 Ready-aware 调度。"
 description: "比较固定 per-SM 队列、阶段闭包与 ready queue，设计能在少量驻留 CTA 下持续推进的调度器。"
 takeaway: "Worker 可以换角色仍不够；只有依赖闭合的任务才能占用驻留槽。"
+beginner_question: "为什么调度器只能派发已经具备条件的任务？"
+beginner_analogy: "厨师会做多种菜还不够；只有食材齐全的菜，才该先占用灶台。"
+beginner_skip: "可先忽略队列数据结构、CLC 和每个 SM 的映射。"
 image: /lesson25/lesson-25.png
 tags: [Ready-aware, Scheduler, Queue, Role-fluid]
 read_time: 10

@@ -7,6 +7,9 @@ stage: "阶段一 · 看懂真实执行瓶颈"
 stage_description: "从已经测过的 Legacy 8B 优化出发，建立 page、warp、TMA 与等待粒度的直觉。"
 description: "把一个 128 KiB stage-wide 门拆成八个 16 KiB page-ready 门，理解“数据总量没变，等待却缩短”的原因。"
 takeaway: "优化的不是搬运字节数，而是谁必须等谁。"
+beginner_question: "为什么一部分数据到了，GPU 还不能马上开工？"
+beginner_analogy: "八箱材料共用一个门铃，第一箱先到也得等八箱齐；给每箱单独门铃，就能先做先到的。"
+beginner_skip: "可先忽略 TMA、mbarrier 和页大小等具体参数。"
 image: /lesson36/legacy8b_page_ready_16x9-v2.png
 tags: [TMA, Shared Memory, Page Pipeline, Legacy 8B]
 read_time: 10

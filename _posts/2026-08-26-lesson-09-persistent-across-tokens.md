@@ -7,6 +7,9 @@ stage: "基础二 · 从源码走进 Persistent Megakernel"
 stage_description: "沿源码、队列与一枚 token 的生命周期理解设备端执行控制。"
 description: "区分层内 CTA 常驻、每 token 一次 whole-model kernel 与跨 token 不退出的 decode engine，并说明 MPS 的位置。"
 takeaway: "Persistent 描述生命周期；是否跨 token 常驻必须单独说明。"
+beginner_question: "常驻 GPU 的程序怎样连续处理多个 token？"
+beginner_analogy: "像值夜班工人留在工位，订单来了就接着做，不必每次重新报到。"
+beginner_skip: "可先忽略跨 token 队列的内存一致性细节。"
 image: /lesson09/lesson-09.png
 tags: [Persistent Kernel, Decode, MPS, Lifetime]
 read_time: 13

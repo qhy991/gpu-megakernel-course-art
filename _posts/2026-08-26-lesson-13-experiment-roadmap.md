@@ -7,6 +7,9 @@ stage: "基础三 · 学会审计性能证据"
 stage_description: "从 NCU、PTX、SASS、实验卡和原始归档建立可复核的性能结论。"
 description: "把候选路线排成逐级是非题，并规定何时继续扩大融合、何时停止。"
 takeaway: "路线图的价值是尽早证伪错误方向。"
+beginner_question: "下一步做什么实验才能最快排除错路？"
+beginner_analogy: "像医生先做最能区分病因的检查，而不是把所有检查都做一遍。"
+beginner_skip: "可先忽略穷举所有参数和自动化平台。"
 image: /lesson13/lesson-13.png
 tags: [Roadmap, Gate, Falsifiability, Experiment]
 read_time: 14

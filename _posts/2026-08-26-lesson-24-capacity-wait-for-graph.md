@@ -7,6 +7,9 @@ stage: "进阶一 · 正确性、生命周期与调度"
 stage_description: "处理 release/acquire、epoch、驻留死锁和 Ready-aware 调度。"
 description: "把 exact occupancy 资源账本与 wait-for graph 结合，系统检查跨 CTA 等待是否可能闭环。"
 takeaway: "容量账本回答能住多少，等待图回答住进去后是否互相卡住。"
+beginner_question: "怎样在运行前判断多个任务会不会互相堵死？"
+beginner_analogy: "先数房间能住几人，再画出谁在等谁；座位不足或等待成环都危险。"
+beginner_skip: "可先忽略寄存器和共享内存的精确容量计算。"
 image: /lesson24/lesson-24.png
 tags: [Occupancy, Wait-for Graph, Deadlock, Resources]
 read_time: 10

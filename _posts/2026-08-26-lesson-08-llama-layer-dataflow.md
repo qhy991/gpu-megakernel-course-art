@@ -7,6 +7,9 @@ stage: "基础二 · 从源码走进 Persistent Megakernel"
 stage_description: "沿源码、队列与一枚 token 的生命周期理解设备端执行控制。"
 description: "把玩具队列映射到真实 Llama 层，区分片上直通、跨 CTA 发布和必须落全局内存的边。"
 takeaway: "融合边界应跟随数据所有权，而不是跟随算子名字。"
+beginner_question: "Llama 一层的数据为什么不能随便融合？"
+beginner_analogy: "像接力赛，先看接力棒由谁保管、何时交接，再决定谁能并组。"
+beginner_skip: "可先忽略张量的精确形状和数学公式。"
 image: /lesson08/lesson-08.png
 tags: [Llama, Dataflow, Ownership, CTA]
 read_time: 12

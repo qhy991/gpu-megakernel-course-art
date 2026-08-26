@@ -7,6 +7,9 @@ stage: "阶段一 · 看懂真实执行瓶颈"
 stage_description: "从已经测过的 Legacy 8B 优化出发，建立 page、warp、TMA 与等待粒度的直觉。"
 description: "DownProj 的最后一个 K-slice 只有正常切片一半，动态关闭重复 TMA、HMMA 与归约工作。"
 takeaway: "尾块变短后，线程几何也应该跟着变。"
+beginner_question: "任务只剩一半时，为什么不能还派全部线程？"
+beginner_analogy: "最后只剩半车货，却仍叫来整队搬运工；多出的人不搬货，也会增加协调成本。"
+beginner_skip: "可先忽略 HMMA 指令、warp 数量和归约细节。"
 image: /lesson38/legacy8b_dynamic_tail_16x9.png
 tags: [DownProj, Tail, Warp Specialization, NCU]
 read_time: 10

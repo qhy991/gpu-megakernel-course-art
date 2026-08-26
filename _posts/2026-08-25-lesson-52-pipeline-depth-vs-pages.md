@@ -7,6 +7,9 @@ stage: "阶段四 · 用受控实验替代性能故事"
 stage_description: "把资源、工作供给、内存序和 benchmark contract 拆成可以逐项推翻的实验。"
 description: "区分外层 instruction pipeline、matvec weight-input pipeline 与 output scratch pipeline。"
 takeaway: "改 input depth 时，output scratch 与 instruction ring 不应该跟着变。"
+beginner_question: "为什么三个都叫 pipeline，却不能一起修改？"
+beginner_analogy: "餐厅的订单队列、烹饪托盘和装盘区是三套周转系统；数量碰巧相同，也不是同一件事。"
+beginner_skip: "可先忽略 mbarrier parity、页编号和取模方式。"
 image: /lesson52/r1_pipeline_depth_vs_pages_16x9.png
 tags: [Instruction Pipeline, Input Pipeline, Output Scratch, Page Release]
 read_time: 14

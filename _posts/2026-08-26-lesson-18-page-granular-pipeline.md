@@ -7,6 +7,9 @@ stage: "基础四 · 三个真实优化机制"
 stage_description: "用 Page-ready、Split-KV 和 Dynamic Tail 看懂等待、并行度与冗余工作。"
 description: "解释 page-granular weight pipeline 如何在总搬运不变时，让已到达权重页对应的 warp 提前开工。"
 takeaway: "优化的是等待依赖粒度，不是权重字节数。"
+beginner_question: "为什么把大任务拆小能减少等待？"
+beginner_analogy: "像餐厅一道菜做好就先上，不必等八道菜全部完成才开席。"
+beginner_skip: "可先忽略 128 KiB 的来源和具体同步指令。"
 image: /lesson18/lesson-18.png
 tags: [Page-ready, TMA, Shared Memory, Pipeline]
 read_time: 12

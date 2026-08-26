@@ -7,6 +7,9 @@ stage: "基础二 · 从源码走进 Persistent Megakernel"
 stage_description: "沿源码、队列与一枚 token 的生命周期理解设备端执行控制。"
 description: "沿 Python 模型、图编译、调度器、指令队列和 resident kernel 区分代码融合、launch 融合与数据流融合。"
 takeaway: "源码放在一起、物理只 launch 一次和数据留在片上，是三件不同的事。"
+beginner_question: "代码写在一起，就等于真正融合了吗？"
+beginner_analogy: "把多张订单订在一起，不代表厨房只开一次火或不再搬食材。"
+beginner_skip: "可先忽略 PTX、SASS 的逐条指令对应。"
 image: /lesson06/lesson-06.png
 tags: [Source Audit, Dispatcher, GPU VM, Fusion]
 read_time: 20

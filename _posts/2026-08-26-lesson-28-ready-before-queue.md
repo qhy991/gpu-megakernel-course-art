@@ -7,6 +7,9 @@ stage: "进阶一 · 正确性、生命周期与调度"
 stage_description: "处理 release/acquire、epoch、驻留死锁和 Ready-aware 调度。"
 description: "把 producer→scheduler→queue→worker 的四棒接力写成发布协议，并区分 queue ACK 与 payload ACK。"
 takeaway: "任务必须在依赖闭合后才对 worker 可见。"
+beginner_question: "为什么任务要准备齐全后，才能放进待办队列？"
+beginner_analogy: "餐单只有在食材齐全后才交给厨师，否则会占着灶台干等。"
+beginner_skip: "可先忽略 queue ACK 与 payload ACK 的编码方式。"
 image: /lesson28/lesson-28.png
 tags: [Ready Queue, Publication, ACK, CLC]
 read_time: 11

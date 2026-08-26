@@ -7,6 +7,9 @@ stage: "阶段三 · 打开 2 CTA 驻留的五把锁"
 stage_description: "逐项审计 shared memory、register、TMEM、grid supply 与 worker identity。"
 description: "把资源收益、global seam、launch 成本、调度 overlap 和正确性协议放进同一个决策框架。"
 takeaway: "只有暴露成本小于可回收成本时，cut 才成立。"
+beginner_question: "什么时候值得把一个 Megakernel 切开？"
+beginner_analogy: "拆开流水线能减少拥挤，却要多一次搬运；省下的等待必须大于新增的交接成本。"
+beginner_skip: "可先忽略评分权重和 release/acquire 细节。"
 image: /lesson48/when_to_split_megakernel_16x9.png
 tags: [Island, Critical Path, Seam Cost, A/B Testing]
 read_time: 12

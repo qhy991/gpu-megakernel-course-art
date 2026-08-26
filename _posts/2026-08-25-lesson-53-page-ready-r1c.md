@@ -7,6 +7,9 @@ stage: "阶段四 · 用受控实验替代性能故事"
 stage_description: "把资源、工作供给、内存序和 benchmark contract 拆成可以逐项推翻的实验。"
 description: "R1c 在 depth1/3page 基线上，仅把每轮 stage-wide arrived/finished 拆成两个 page-local 门。"
 takeaway: "一组 buffer 也能做页内流水，只要每页有独立 ready 与 reuse ACK。"
+beginner_question: "只有一组缓冲区，还能让搬运和计算重叠吗？"
+beginner_analogy: "同一张工作台分成左右两格；左边材料先到就先做，做完确认后才允许覆盖。"
+beginner_skip: "可先忽略三页布局、shared 字节数和 barrier phase。"
 image: /lesson53/canonical_r1c_page_ready_16x9.png
 tags: [R1c, mbarrier, Page-ready, Reuse ACK]
 read_time: 14

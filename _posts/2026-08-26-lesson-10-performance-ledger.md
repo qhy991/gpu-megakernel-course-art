@@ -7,6 +7,9 @@ stage: "基础二 · 从源码走进 Persistent Megakernel"
 stage_description: "沿源码、队列与一枚 token 的生命周期理解设备端执行控制。"
 description: "把总延迟拆成计算、搬运、同步、空闲、调度和 launch，判断普通融合、Graph 或 resident kernel 谁更合适。"
 takeaway: "任何优化都必须同时记下省掉的成本和新增的成本。"
+beginner_question: "优化省下的时间为什么不一定等于收益？"
+beginner_analogy: "像记家庭账，少交一笔费用，也可能新增运输费和管理费。"
+beginner_skip: "可先忽略逐周期归因和功耗统计。"
 image: /lesson10/lesson-10.png
 tags: [Performance Ledger, Amdahl, Executor, CUDA Graph]
 read_time: 17

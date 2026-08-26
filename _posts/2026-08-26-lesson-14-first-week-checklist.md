@@ -7,6 +7,9 @@ stage: "基础三 · 学会审计性能证据"
 stage_description: "从 NCU、PTX、SASS、实验卡和原始归档建立可复核的性能结论。"
 description: "把路线图落成一周内可执行的基线冻结、正确性、计时、profile 和归档任务。"
 takeaway: "先得到一个可信结论，再追求更多候选。"
+beginner_question: "第一周怎样得到一个可信的结论？"
+beginner_analogy: "像做小实验，先固定条件、只改一项，再重复测量确认。"
+beginner_skip: "可先忽略大规模参数搜索和结果美化。"
 image: /lesson14/lesson-14.png
 tags: [Checklist, Baseline, Artifact, Reproducibility]
 read_time: 14

@@ -7,6 +7,9 @@ stage: "阶段二 · 找到真正值得保留的融合边界"
 stage_description: "区分物理融合、Graph provider swap 与概念 island，不把不同实验合同拼成一个故事。"
 description: "沿 QKV、Attention、OProj、UpGate、DownProj 和 LMHead，逐条盘点跨边界状态。"
 takeaway: "决定切不切的，不是算子名字，而是边界上必须保存什么。"
+beginner_question: "一层模型应该从哪里切成几个 kernel？"
+beginner_analogy: "接力赛在哪里换棒，不看选手名字，而看交接时要传什么、传多少、会不会停下来。"
+beginner_skip: "可先忽略张量字节数和 IType 的源码映射。"
 image: /lesson41/llama1b_one_layer_island_seams_16x9.png
 tags: [Llama, Seam, Tensor Lifetime, Dispatcher]
 read_time: 12

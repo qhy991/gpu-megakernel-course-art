@@ -7,6 +7,9 @@ stage: "进阶一 · 正确性、生命周期与调度"
 stage_description: "处理 release/acquire、epoch、驻留死锁和 Ready-aware 调度。"
 description: "用 KV head 0 的真实 Q/K/V block 依赖构造 ReadyAtom 与 ReadyGroup。"
 takeaway: "ReadyGroup 必须来自真实 producer 集合，而不是只看一个粗粒度计数器。"
+beginner_question: "一个小任务究竟要等哪些输入，才能安全开始？"
+beginner_analogy: "像做一道菜要等齐指定食材，不能只看仓库里已经来了几个箱子。"
+beginner_skip: "可先忽略 Q、K、V 的块编号和 KV head 映射。"
 image: /lesson26/lesson-26.png
 tags: [ReadyGroup, Partial Attention, QKV, Dependency]
 read_time: 8

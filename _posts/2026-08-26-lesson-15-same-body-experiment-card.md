@@ -7,6 +7,9 @@ stage: "基础三 · 学会审计性能证据"
 stage_description: "从 NCU、PTX、SASS、实验卡和原始归档建立可复核的性能结论。"
 description: "用同一数学 body 比较 CUDA Graph 与 resident layer，明确变量、计时边界、正确性门和停止条件。"
 takeaway: "实验卡应让第三个人能够复跑并推翻你的解释。"
+beginner_question: "怎样设计让别人能复现和质疑的实验？"
+beginner_analogy: "实验卡像完整菜谱，材料、步骤和火候都要写到别人能照做。"
+beginner_skip: "可先忽略模板样式和自动生成报告。"
 image: /lesson15/lesson-15.png
 tags: [Same-body, Experiment Card, ABBA, Correctness]
 read_time: 20

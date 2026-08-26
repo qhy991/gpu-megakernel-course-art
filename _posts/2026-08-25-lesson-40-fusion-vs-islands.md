@@ -7,6 +7,9 @@ stage: "阶段二 · 找到真正值得保留的融合边界"
 stage_description: "区分物理融合、Graph provider swap 与概念 island，不把不同实验合同拼成一个故事。"
 description: "用同体 Graph 对照和负向切分控制，理解融合收益与资源包络成本之间的 U 型关系。"
 takeaway: "融合不是越多越好，切分也不会自动让资源变小。"
+beginner_question: "把所有计算塞进一个大 kernel，一定最快吗？"
+beginner_analogy: "所有工序挤进一间厨房，传菜少了，却可能被最大设备占满；分成几间厨房有时更顺。"
+beginner_skip: "可先忽略 Graph provider 和历史计时数据。"
 image: /lesson40/maximum_fusion_vs_megakernel_islands_16x9-v3.png
 tags: [Fusion, CUDA Graph, Megakernel Island, Launch Overhead]
 read_time: 12

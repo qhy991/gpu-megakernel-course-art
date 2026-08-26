@@ -7,6 +7,9 @@ stage: "阶段四 · 用受控实验替代性能故事"
 stage_description: "把资源、工作供给、内存序和 benchmark contract 拆成可以逐项推翻的实验。"
 description: "用确定性 poison、握手门和 fault signature，让 READY_EARLY 与 ACK_EARLY 必然暴露。"
 takeaway: "正例全绿不够；坏协议必须按预期失败，测试才算通过。"
+beginner_question: "程序运行正确，为什么还要故意制造错误？"
+beginner_analogy: "门锁不能只用正确钥匙测试；还要故意用错钥匙，并确认它确实打不开。"
+beginner_skip: "可先忽略 poison 数值、warp 掩码和 watchdog 实现。"
 image: /lesson54/canonical_r1c_poison_litmus_16x9.png
 tags: [Poison Litmus, Memory Ordering, Mutation Test, Epoch]
 read_time: 15

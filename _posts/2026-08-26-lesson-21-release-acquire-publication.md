@@ -7,6 +7,9 @@ stage: "进阶一 · 正确性、生命周期与调度"
 stage_description: "处理 release/acquire、epoch、驻留死锁和 Ready-aware 调度。"
 description: "用跨 CTA producer-consumer 解释为什么原子 flag 正确不等于 payload 已可见。"
 takeaway: "完成信号必须在数据之后 release，读取数据必须在看到信号后 acquire。"
+beginner_question: "看到“完成”标志时，数据为什么可能还没准备好？"
+beginner_analogy: "厨师要先把菜放到窗口再按铃；服务员听见铃后，才能放心取菜。"
+beginner_skip: "可先忽略 release/acquire 对应的指令和语法。"
 image: /lesson21/lesson-21.png
 tags: [Release, Acquire, Memory Ordering, CTA]
 read_time: 10

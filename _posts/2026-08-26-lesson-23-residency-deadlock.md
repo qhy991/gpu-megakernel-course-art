@@ -7,6 +7,9 @@ stage: "进阶一 · 正确性、生命周期与调度"
 stage_description: "处理 release/acquire、epoch、驻留死锁和 Ready-aware 调度。"
 description: "说明 CTA 驻留、claim-then-wait 与资源环如何让逻辑正确的同步协议产生调度死锁。"
 takeaway: "不能让等待中的 consumer 占满 producer 入场所需的所有座位。"
+beginner_question: "同步规则都写对了，任务为什么仍可能永远卡住？"
+beginner_analogy: "等待卸货的卡车占满仓库入口，送货车进不来，双方就会一直等下去。"
+beginner_skip: "可先忽略 occupancy 公式、寄存器配额和 MPS。"
 image: /lesson23/lesson-23.png
 tags: [Deadlock, Residency, Scheduler, MPS]
 read_time: 12

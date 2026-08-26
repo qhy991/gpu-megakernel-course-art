@@ -7,6 +7,9 @@ stage: "进阶一 · 正确性、生命周期与调度"
 stage_description: "处理 release/acquire、epoch、驻留死锁和 Ready-aware 调度。"
 description: "区分原子计数完整性、payload 可见性、代际身份和安全复用四层含义。"
 takeaway: "计数器到达只证明事件数量，不自动证明数据、epoch 和生命周期。"
+beginner_question: "计数达到目标，为什么还不能断定数据可用？"
+beginner_analogy: "快递数目对了，不代表箱内货物正确、属于本批，也不代表货架能立即清空。"
+beginner_skip: "可先忽略原子操作的内存顺序和 epoch 编码。"
 image: /lesson27/lesson-27.png
 tags: [Ready, Atomic, Visibility, Lifetime]
 read_time: 9

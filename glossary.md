@@ -10,6 +10,15 @@ permalink: /glossary/
   <div class="prose">
     <p>本页不是 CUDA 百科，而是这套课程的统一词典。同一个词在后续课程中始终使用这里的含义。第一次遇到不熟悉的缩写时，可以从这里查起。</p>
 
+    <h2>零基础先记四件事</h2>
+    <ul>
+      <li><strong>GPU 像一座有很多车间的工厂</strong>：SM 是车间，CTA 是进车间干活的一组工人，warp 是通常一起行动的 32 人小队。</li>
+      <li><strong>Kernel 是一张工作单</strong>：普通做法频繁发新工作单；Persistent Kernel 让工人留在厂里继续领任务。</li>
+      <li><strong>快不只取决于算得快</strong>：等数据、等同伴、搬运和交接都可能占时间。</li>
+      <li><strong>Megakernel 是把多道工序放进同一座厂</strong>：交接可能更少，但厂房和工具也必须按最重的工序准备。</li>
+    </ul>
+    <p>第一次阅读只要记住这四句。下面的缩写在遇到时再查，不需要先背完。</p>
+
     <h2>执行层级</h2>
     <dl>
       <dt><strong>Thread（线程）</strong></dt><dd>CUDA 中最小的编程执行单元。</dd>

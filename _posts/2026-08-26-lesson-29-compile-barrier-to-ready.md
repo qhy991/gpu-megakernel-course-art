@@ -7,6 +7,9 @@ stage: "进阶二 · 把依赖编译成可证伪系统"
 stage_description: "把 barrier 转成 Ready 状态机，再用 poison、exact binary 和 manifest 闭合证据。"
 description: "从 canonical 的 src_barriers 生成 ReadyAtom、ReadyGroup 与反向 successor 表，把运行时等待改成完成时唤醒。"
 takeaway: "把“我要等谁”反转为“我完成后唤醒谁”，才能生成 Ready 调度。"
+beginner_question: "怎样把反复等待，改成完成后主动通知？"
+beginner_analogy: "后续工人不用一直追问；前序工作完成时，系统直接通知下一位开工。"
+beginner_skip: "可先忽略编译器表结构和 barrier 的源码编号。"
 image: /lesson29/lesson-29.png
 tags: [Compiler, Barrier, ReadyGroup, Successor]
 read_time: 10

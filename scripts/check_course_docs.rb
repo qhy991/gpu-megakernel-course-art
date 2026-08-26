@@ -8,7 +8,7 @@ require "yaml"
 ROOT = Pathname.new(__dir__).join("..").expand_path
 REQUIRED_FIELDS = %w[
   layout title slug lesson stage stage_description description takeaway
-  image tags read_time status
+  beginner_question beginner_analogy beginner_skip image tags read_time status
 ].freeze
 
 def fail_check(message)
@@ -35,6 +35,15 @@ posts = Dir[ROOT.join("_posts/*.md")].map do |file|
   fail_check("#{file} needs a 本课用词 block") unless body.include?("**本课用词**")
   fail_check("#{file} needs at least three main sections") if body.scan(/^## /).size < 3
   fail_check("#{file} is too short for a detailed lesson") if body.length < 1_500
+  {
+    "beginner_question" => 55,
+    "beginner_analogy" => 90,
+    "beginner_skip" => 55
+  }.each do |field, max_length|
+    value = data.fetch(field).to_s.strip
+    fail_check("#{file} has an empty #{field}") if value.empty?
+    fail_check("#{file} #{field} is too long (#{value.length} > #{max_length})") if value.length > max_length
+  end
   if data.fetch("lesson") >= 36
     fail_check("#{file} needs at least six main sections") if body.scan(/^## /).size < 6
     fail_check("#{file} needs a lesson-specific exercise") unless body.match?(/^## .*练习/)
@@ -75,4 +84,5 @@ end
 puts "PASS: #{posts.size} lessons (#{lessons.first}-#{lessons.last})"
 puts "PASS: metadata, terminology blocks, sections, navigation and 16:9 images"
 puts "PASS: detailed-lesson length, advanced-section depth and exercises"
+puts "PASS: concise zero-background questions, analogies and skip guidance"
 puts "PASS: README, about, evidence and glossary entry points"

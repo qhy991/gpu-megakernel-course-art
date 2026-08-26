@@ -7,6 +7,9 @@ stage: "阶段三 · 打开 2 CTA 驻留的五把锁"
 stage_description: "逐项审计 shared memory、register、TMEM、grid supply 与 worker identity。"
 description: "TMEM 是独立的硬件准入资源；canonical Llama-1B 甚至申请了 512 列，却没有用它存数值 tile。"
 takeaway: "资源是否被数值代码使用，与它是否影响 kernel 准入，是两件事。"
+beginner_question: "明明没用一块专用空间，为什么它仍会挡住新任务？"
+beginner_analogy: "停车位虽然空着，但已被预约；别人看到名额被占，就不能把车开进来。"
+beginner_skip: "可先忽略 TMEM、tcgen05 和二进制元数据。"
 image: /lesson45/third_lock_tmem_16x9.png
 tags: [TMEM, tcgen05, Occupancy, Blackwell]
 read_time: 12

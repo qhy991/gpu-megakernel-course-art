@@ -7,6 +7,9 @@ stage: "进阶二 · 把依赖编译成可证伪系统"
 stage_description: "把 barrier 转成 Ready 状态机，再用 poison、exact binary 和 manifest 闭合证据。"
 description: "把 Atom→Group→Worker→ACK 状态机映射到 CUDA 原子、release/acquire 和 epoch 生命周期。"
 takeaway: "relaxed 用于找路，release/acquire 用于数据交接，ACK 用于代际复用。"
+beginner_question: "GPU 上的多个执行者怎样安全交接任务和数据？"
+beginner_analogy: "像接力赛：先交棒，再确认对方接到，最后才能把这根棒交给下一轮。"
+beginner_skip: "可先忽略 CUDA 原子 API 和具体内存顺序指令。"
 image: /lesson31/lesson-31.png
 tags: [CUDA Controller, Atomics, Release Acquire, Epoch]
 read_time: 10

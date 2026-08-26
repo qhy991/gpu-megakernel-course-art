@@ -7,6 +7,9 @@ stage: "基础二 · 从源码走进 Persistent Megakernel"
 stage_description: "沿源码、队列与一枚 token 的生命周期理解设备端执行控制。"
 description: "用 Norm→Linear→Activation 玩具 DAG 学习 per-SM queue、event、shared page 和 release/acquire 的连接方式。"
 takeaway: "最小 Megakernel 也是一个带依赖、队列和生命周期的调度系统。"
+beginner_question: "一个最小 Megakernel 至少要管哪些事？"
+beginner_analogy: "像小工厂的总调度员，要分派任务、等待前序完成并回收资源。"
+beginner_skip: "可先忽略高性能矩阵乘实现和硬件极限。"
 image: /lesson07/lesson-07.png
 tags: [DAG, Queue, Event, Pseudocode]
 read_time: 18

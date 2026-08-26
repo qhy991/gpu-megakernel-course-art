@@ -7,6 +7,9 @@ stage: "阶段二 · 找到真正值得保留的融合边界"
 stage_description: "区分物理融合、Graph provider swap 与概念 island，不把不同实验合同拼成一个故事。"
 description: "把 individual、islands、per-layer 与 whole resident 放进同一条证据梯，避免拼接不同实验。"
 takeaway: "没有同体、同输入、同正确性门的四臂表，就没有 Island 冠军。"
+beginner_question: "怎样公平证明一种 kernel 切法更好？"
+beginner_analogy: "赛车必须跑同一赛道、同一距离并用同一计时器；否则成绩不能直接比较。"
+beginner_skip: "可先忽略 A/B/C/D 编号和旧实验的具体数值。"
 image: /lesson42/four_arm_island_evidence_ladder_16x9.png
 tags: [A/B Testing, CUDA Graph, Evidence, Correctness]
 read_time: 11

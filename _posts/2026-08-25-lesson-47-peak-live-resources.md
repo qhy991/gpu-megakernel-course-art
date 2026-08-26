@@ -7,6 +7,9 @@ stage: "阶段三 · 打开 2 CTA 驻留的五把锁"
 stage_description: "逐项审计 shared memory、register、TMEM、grid supply 与 worker identity。"
 description: "用时间线计算每种资源的峰值存活量，区分内容复用与 CUDA 准入配额。"
 takeaway: "资源是向量；同一种资源取时间峰值，不同资源取各自的 floor。"
+beginner_question: "为什么不同资源的占用百分比不能直接相加？"
+beginner_analogy: "教室的座位和电力是两种限制，不能把各自百分比相加；哪项先耗尽，哪项就卡住入场。"
+beginner_skip: "可先忽略 peak-live 公式和 setmaxnreg 指令。"
 image: /lesson47/peak_live_resources_16x9.png
 tags: [Liveness, Resource Envelope, setmaxnreg, Page Lifetime]
 read_time: 11

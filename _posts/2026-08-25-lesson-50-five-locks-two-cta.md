@@ -7,6 +7,9 @@ stage: "阶段四 · 用受控实验替代性能故事"
 stage_description: "把资源、工作供给、内存序和 benchmark contract 拆成可以逐项推翻的实验。"
 description: "Shared、register、TMEM、grid supply、worker identity 五个条件必须同时成立。"
 takeaway: "occupancy=2 只是第二把门后的通行证，不是最终结果。"
+beginner_question: "资源够放两组任务，为什么它们仍可能跑不起来？"
+beginner_analogy: "厨房放得下两位厨师还不够：还要有两份订单、两套材料，并让两人各自认领任务。"
+beginner_skip: "可先忽略 CTA、B200 容量和 cluster2。"
 image: /lesson50/five_locks_for_two_cta_16x9-v2.png
 tags: [2 CTA, Occupancy, Grid Supply, Worker Identity]
 read_time: 13

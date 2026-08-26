@@ -7,6 +7,9 @@ stage: "进阶二 · 把依赖编译成可证伪系统"
 stage_description: "把 barrier 转成 Ready 状态机，再用 poison、exact binary 和 manifest 闭合证据。"
 description: "连接 Source、PTX、SASS、Runtime，并解释 JIT cache key 或 binary provenance 断链为何使结论失效。"
 takeaway: "四层都有证据仍不够；它们必须属于同一个 exact CUBIN。"
+beginner_question: "为什么源码、机器代码和运行结果必须来自同一次构建？"
+beginner_analogy: "菜谱、出炉照片和品尝记录必须对应同一炉面包，否则证据无法互相证明。"
+beginner_skip: "可先忽略 PTX、SASS 的指令细节和哈希算法。"
 image: /lesson34/lesson-34.png
 tags: [Provenance, PTX, SASS, Runtime]
 read_time: 9

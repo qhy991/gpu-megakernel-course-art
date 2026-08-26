@@ -7,6 +7,9 @@ stage: "基础四 · 三个真实优化机制"
 stage_description: "用 Page-ready、Split-KV 和 Dynamic Tail 看懂等待、并行度与冗余工作。"
 description: "解释 DownProj 的 2048 短尾为何不应继续使用满 4096 的 TMA、warp 和 reduction 几何。"
 takeaway: "尾块变短时，执行几何也应缩短，但整步收益受占比限制。"
+beginner_question: "最后一小段数据，为什么不该按整块规模处理？"
+beginner_analogy: "像货车只剩半车货，就不必再派满编装卸队；按实际货量安排人手更省事。"
+beginner_skip: "可先忽略 TMA、warp 和 HMMA 的具体执行参数。"
 image: /lesson20/lesson-20.png
 tags: [Dynamic Tail, DownProj, Warp, HMMA]
 read_time: 8
