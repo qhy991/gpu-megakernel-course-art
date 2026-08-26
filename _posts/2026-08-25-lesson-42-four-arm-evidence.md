@@ -56,3 +56,15 @@ GateUp→SwiGLU 的正向融合、Down→Norm 的负向实验、Aug17 provider s
 - context buckets 与 real KV；
 - both-order p50 至少跨过噪声门；
 - 任何桶回退时支持条件分发或归档。
+
+## 四臂各自回答什么
+
+A→C 回答 per-layer 组织是否值得；C→D 回答跨层常驻与 overlap 是否继续贡献；A→B 回答少量 island 是否删掉最有价值的边界；B→D 回答资源专门化能否补偿新增 seam。四个差值不是同一个问题，不能只看最终排名。
+
+## 一张合格结果表
+
+除 p50/p90 外，还要记录 path identity、kernel/Graph census、binary hash、正确性强度、资源包络和 workload bucket。A/B/C/D 应采用 ABBA 或随机交错，降低频率、温度与后台负载的时间漂移。未运行的臂明确写 `NOT RUN`；正确性失败的延迟只用于诊断，不参与排名。
+
+## 练习：识别无效拼图
+
+给出 A=1B pos0、B=8B 4K、D=1B pos0 的三组数字，解释为什么不能画 A→B→D 加速曲线。然后列出让 B 合法入表所需冻结的模型、shape、body、reset、正确性和计时合同。

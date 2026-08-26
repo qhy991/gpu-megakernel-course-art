@@ -55,3 +55,19 @@ Legacy 8B 把 LMHead 拆成 dedicated helper，即使 helper 自身没有 spill�
 - 不把另一个模型、shape 或 profiler 工件套过来。
 
 图中的 U 型曲线只是概念模型，不是实测曲线。当前 island 路线仍是 **PROPOSED · UNMEASURED**。
+
+## 为什么会出现 U 型关系
+
+融合较少时，主要成本来自 launch、global materialization 和边界同步；继续融合通常能删除这些成本。融合超过某个点后，最坏 register、shared、TMEM 与 block geometry 开始支配所有阶段，原本可专门化的小算子被迫背负整张图的资源包络。
+
+每条 seam 都应独立计算：保留融合的收益来自删除边界、合法 overlap 和数据局部性；代价来自共享最坏资源包络与内部协议。不能先决定“两岛最好”再为它寻找理由。
+
+## 公平比较必须锁住什么
+
+候选必须使用同样的数学 body、精度、输入、权重、KV 状态、Graph replay 次数、reset 规则和计时边界。尤其不能让 individual arm 调用成熟库 kernel，而 resident arm 使用未调优 body，再把差异全部归因于执行组织。
+
+还要保存 kernel census 与 exact binary hash，否则 B 臂可能实际 fallback 到 A，或一次 provider swap 改变了不止物理边界。
+
+## 练习：评审一个三岛提案
+
+假设切缝位于 Attention→OProj 与 UpGate→Down。为两条 seam 分别列出 payload、publication、额外 launch、可回收资源和可能丢失的 overlap。最后给出三个停止条件：资源包络未改变、正确性门失败、whole-boundary A/B 未过噪声。

@@ -62,3 +62,23 @@ Legacy Llama-8B 的 hidden dimension 是 4096。一次 matvec 权重输入可以
 - 画清楚每个 warp 读取哪一段字节。
 - 区分 `arrived`、`finished` 与跨 instruction 的 page release。
 - 只在总工作保持不变时，把差异归因于 readiness 粒度。
+
+## 把时间线完整走一遍
+
+假设八笔 TMA 的完成时刻依次为 `t0...t7`，每页计算需要时间 `C`。旧协议中，所有 consumer 的最早开工时刻都是 `t7`，理想完成时刻约为 `t7 + C`。逐页协议中，第 `i` 页对应 warp 的最早开工时刻是 `ti`；如果 loader 与 consumer 能并行，前几页的计算会隐藏在后几页搬运之后。
+
+这并不保证最终延迟一定减少。若八页几乎同时到达、计算极短，拆成八套 semaphore 的控制成本可能抵消收益；若某页消费者成为长尾，复用同一物理页前仍必须等待该页所有读取结束。真正要测的是“被删除的等待”减去新增协议成本后的 whole-boundary 净收益。
+
+## 三层生命周期不能合并
+
+一页数据至少经历三种状态：
+
+1. **本轮可读**：TMA 完成，READY 发布；
+2. **本轮读完**：该页所有 consumer 发出 FINISHED；
+3. **跨指令可复用**：拥有该物理页的 instruction 完成 page release。
+
+READY 过早会读到旧数据；FINISHED 过早会在 consumer 尚未读完时被 loader 覆写；page release 过早会让下一条 instruction 抢走仍在使用的物理页。三者保护的对象不同，不能用一个计数器含糊替代。
+
+## 练习：自己判断是否值得拆门
+
+画一条包含两页的时间线，设 page0 在 2 μs 到达、page1 在 7 μs 到达，每页计算 4 μs。分别计算 stage-wide 与 page-ready 的理想完成时刻，再加入 0.4 μs 的额外协议成本。最后注明：这是理想调度估算，不是 B200 实测值。

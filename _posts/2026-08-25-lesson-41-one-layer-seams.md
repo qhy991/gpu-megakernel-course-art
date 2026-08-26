@@ -49,3 +49,17 @@ OProj → UpGate 只需要已有 global hidden，因此是最容易建立正确�
 新 kernel 会重建 register、shared pages、动态 semaphore 和 tensor allocator；global weights、KV cache、hidden、persistent internal buffer 仍存在。
 
 因此 physical cut 真正增加的是：launch/Graph node、global handoff、barrier reset 和新资源准入。它不会自动删除 global tensor，也不会自动降低 per-CTA shared memory。
+
+## 给每条 Seam 写一张合同
+
+一条可实现的切缝至少写清 producer、payload 的地址/shape/dtype/layout、release publication、consumer acquire、reuse ACK 和新 kernel 重建的资源。若只写“在 OProj 后切一刀”，仍不是工程规格。尤其 K/V cache 与 hidden 可能由不同 producer 发布，不能因位于同一逻辑算子就共用粗 ready bit。
+
+## 判断自然边界的三个层次
+
+第一层是**正确性自然**：payload 已在 global memory，生命周期清晰。第二层是**资源自然**：cut 后 exact CUBIN 的 live range、shared pages 或 TMEM capability 真正缩小。第三层是**性能自然**：新增边界成本小于释放资源和专门化的收益。
+
+OProj→UpGate 目前只较强满足第一层；后两层必须编译和测量，不能由源码形状直接推出。
+
+## 练习：审计 UpGate→Down
+
+根据 `silu_out[8192]` BF16 估算逻辑 payload 大小，列出物理切开新增的 global 写、读和 publication。再说明为什么“payload 16 KiB”不等于“DRAM 流量恰好 32 KiB”。

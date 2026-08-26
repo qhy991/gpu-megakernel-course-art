@@ -51,3 +51,21 @@ Legacy 8B P16 的 NCU 中，一个 640-thread CTA 占据一个 SM。20 个 warp 
 “occupancy 低，所以降寄存器一定更快”并不成立。降低寄存器可能提高 resident CTA 数，也可能破坏 ILP、增加 spill，最终变慢。
 
 正确问题是：当前关键路径是在等更多 resident warp，还是在等数据、barrier 或单条长依赖？
+
+## 从一拍 Scheduler 的视角理解
+
+一个 warp resident 后，每周期都可能因数据依赖、memory scoreboard、barrier、执行管线占用或指令尚未取到而不可发射。只有条件全部满足时，它才进入 eligible 集合；scheduler 再从 eligible 集合选一个 issue。
+
+- resident 少、eligible 比例高：可能缺少并行工作；
+- resident 多、eligible 少：很多 warp 住着，但都在等待；
+- eligible 多、issue 仍低：可能受 scheduler、目标管线或前端吞吐限制。
+
+第一种才可能优先考虑 occupancy；第二种要追等待链；第三种要看 instruction mix 与管线利用。
+
+## 报告阅读顺序
+
+先确认 exact kernel、shape 与 duration；再查看 CTA/SM、register、shared 和理论 occupancy；然后比较 active、eligible 与 issued warps，定位主要 stall reason；最后回到源码/PTX/SASS，并用单变量实验验证。摘要页的一个百分比只能提供线索，不能提供因果结论。
+
+## 练习：给三个优化建议判刑
+
+分别评价“把寄存器从 168 降到 96”“增加 prefetch”“把 barrier 拆细”。写出它针对哪种等待、可能新增什么成本，以及需要哪组 NCU 与无 profiler 计时才能验收。

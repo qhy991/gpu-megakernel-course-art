@@ -66,3 +66,15 @@ occupancy 一点没变，实验却被错误命名为“3-page arm”。
 ## 必须先做 R1a
 
 为了分离“pipeline depth 变浅”的性能代价和“page 数变少”的资源收益，实验应先做 depth1 但仍保留 7 页的 R1a，再做真正 3 页的 R1b。直接从 7页/3级跳到 3页/1级，无法知道差异来自哪一个变量。
+
+## 三页方案的内存账本
+
+不能只把 `7 × page_size` 改成 `3 × page_size`。必须逐项重算 activation、两页 weight、output scratch、semaphore、alignment padding 与 driver reserved。scratch 若仍按旧上界放进 dynamic shared，表面删掉的四页会被另一块缓冲重新填满。
+
+## 正确性风险在哪里
+
+depth3 允许 loader 在 consumer 处理 stage0 时预取 stage1/2；depth1 改成同一对 weight page 反复覆写。每次覆写前必须等 FINISHED，每次读取前必须等 READY，最后一轮还要按新的 page ownership 顺序释放。任何旧的 `i % 3` 或 parity 逻辑残留都可能产生跨轮覆盖。
+
+## 练习：画出 R1a 与 R1b
+
+对 `iters=4` 分别画 depth3/7page、depth1/7page、depth1/3page 的 page 使用表。标出每轮 READY、FINISHED 和最终 page release，再说明 R1a、R1b 各自只改变了哪个变量。

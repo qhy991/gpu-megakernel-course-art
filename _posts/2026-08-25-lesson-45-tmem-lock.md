@@ -46,3 +46,15 @@ Legacy 8B 有一对匹配 binary：两者 block、register 和 shared 容量都�
 硬件允许中途 alloc/dealloc，但当前 allocator 的 C++ 作用域是整个 kernel。某条 instruction 的 `tensor_finish` 不会把 TMEM 还给 SM，也不会触发新 CTA 入场。
 
 与 shared page 一样，要区分“内容 token 已可复用”和“硬件准入资源已释放”。
+
+## TMEM 的两种身份
+
+一是数值存储：tcgen05 指令真实读写 tensor 数据；二是 capability/allocator contract：binary 声明需要多少 TMEM，即使某个 workload 分支没有执行数值路径，也可能影响准入。判断“是否需要 TMEM”不能只搜索运行时一次调用，而要同时检查 ELF/PTX/SASS marker 与 exact occupancy。
+
+## 为什么 Dealloc 不等于新 CTA 立即入场
+
+某条 instruction 的逻辑完成可以释放软件 token，但当前 kernel 的资源包络和 cluster 合同可能仍保持不变。若要主张中途 dealloc 触发新的 CTA admission，必须有明确硬件合同与运行时 timeline 证据；不能从 allocator API 名字推断 scheduler 行为。
+
+## 练习：设计正负控
+
+准备 no-TMEM、metadata-only、真实 tcgen05 三个 binary。记录 marker、columns、occupancy query、数值结果和 observed CTA/SM。若 no-TMEM 与 metadata-only 不同，差异说明什么？若 query=2 而 observed=1，还缺哪几层证据？

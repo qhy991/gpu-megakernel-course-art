@@ -64,3 +64,15 @@ B/C 的 normalized SASS、资源与输出应等价；D 若误标为 0 必须编�
 ## 不要许诺 2 CTA
 
 manifest 只解决“不要申请不需要的 TMEM”。canonical Llama-1B 的 shared 与 register 仍各自限制 1 CTA/SM。资源能力系统本身可以在“正确、无稳定回退”时合入，但不能声称性能提升。
+
+## Manifest 应怎样传播
+
+能力必须从 IType 声明进入 compiler 汇总，再进入 physical kernel 申请。任一并发 IType 需要 TMEM，该 physical island 就必须申请；不能由 host 根据“通常不会走到”猜测。汇总还应 fail-closed：未知 IType 或缺失字段默认需要资源，避免静默生成错误 binary。
+
+## 为什么按 Physical Island 汇总
+
+manifest 的作用域不是整模型，也不是单条动态 instruction，而是共享同一 exact binary/驻留包络的并发集合。把 TMEM IType 切进独立 island 后，no-TMEM island 才可能获得独立合同；只在同一 megakernel 内加 `if` 不会自动改变 binary 资源属性。
+
+## 练习：补一张清单
+
+为四个 IType 写 `uses_tmem`、columns、证据来源和未知字段策略。构造一个错误标为 0 的真实 tcgen05 正控，要求编译或资格门失败。若它仍静默运行，manifest 尚未形成可执行合同。

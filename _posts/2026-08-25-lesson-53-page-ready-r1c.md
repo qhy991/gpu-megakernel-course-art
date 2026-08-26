@@ -71,3 +71,17 @@ output scratch 仍按 `i % 3` 选择槽，跨 instruction page token 又使用�
 ## 为什么 Lesson 36 只能作旁证
 
 Legacy 8B 的正结果也是 depth1，但它拆的是 `8 × 16 KiB / 2 warps`；R1c 是 `2 × 32 KiB / 4 warps`，TMA 聚合和消费者分组不同。因此它支持“readiness 粒度值得测”，不能迁移收益幅度。
+
+## R1c 的完整状态机
+
+每页从 FINISHED 进入 loader ownership；loader 设置本轮 expected bytes 并发两笔 TMA；硬件完成后 READY 翻相；四个 consumer acquire READY、读取各自 8 KiB，再各自 ACK；第四个 ACK 让页回到 FINISHED。下一轮 loader 只能从这里重新开始。
+
+状态机需要 epoch，因为 READY/FINISHED 的比特会循环复用；还需要跨 instruction page token，因为某页即使本 instruction 读完，也不代表下一条 instruction 已合法取得所有权。
+
+## 怎样判断它真的形成 Overlap
+
+除了延迟，还要记录 page0/page1 的 TMA complete、consumer first issue、last ACK 与下一 iteration issue 时间。若 page0 下一轮 issue 始终等到 page1 ACK 之后，说明实现仍有隐藏的 stage-wide 门，源码看起来 page-local 也没有产生真实 overlap。
+
+## 练习：构造慢 Page1
+
+只给 page1 consumer 增加受控延迟。预测 stage-wide 与 page-local 下 page0 下一轮的最早 issue 时刻，并写出应观察的 timeline signature。该 debug 变体只验证机制，不参与性能排名。

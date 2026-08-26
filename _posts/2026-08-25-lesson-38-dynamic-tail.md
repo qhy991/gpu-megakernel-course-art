@@ -57,3 +57,17 @@ DRAM bytes 几乎不变，而 active cycles、HMMA、shared instruction 和 inst
 当前地址与归约逻辑只对默认 `[4096,4096,4096,2048]` 成立。scheduler 虽能构造其他字段组合，但没有 CUDA 地址/归约集成验证。
 
 所以它是 **Llama-8B 默认形状特化**，不能包装成通用 dynamic K-tail 算法。
+
+## 为什么空闲 Warp 仍要参与协议
+
+Tensor Core 工作可以按 `K=2048` 减半，但 CTA 内的资源所有权没有自动变化。被关闭计算的 8 个 warp 仍可能要到达 CTA 级 barrier、维持完成计数、参与固定同步点，或让下一轮安全复用缓冲区。
+
+若只在数学分支中 `return`，其余 warp 可能永久等待一个不会到达的 participant。正确路径是：所有 warp 进入共同控制流，active warp 执行 TMA 消费与 HMMA，inactive warp 跳过数学但履行同步合同，最后在协议允许的位置重新汇合。
+
+## 用 Amdahl 定律预估上限
+
+若最后半块占 whole-model 时间比例为 `f`，局部加速 `s` 倍，整体上限为 `1 / ((1-f)+f/s)`。尾块自身即使减半，若只占总时间 3%，整步理论提升也只有约 1.5%。这与测到的量级相容，但不能反过来证明机制；仍需 instruction、HMMA 和 active-cycle 证据。
+
+## 练习：为新形状设计 Tail
+
+把 reduction 切片改成 `[4096,4096,1024]`。重新推导有效 page 数、active consumer warp、每 warp K 范围、reduction fan-in 和 barrier expected count。任何一项仍硬编码为默认形状，都说明它还不是通用实现。

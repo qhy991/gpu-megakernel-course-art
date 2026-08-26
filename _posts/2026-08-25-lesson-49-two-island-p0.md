@@ -64,3 +64,17 @@ canonical deterministic schedule：
 - 若 Graph census 与预注册不符，path identity 失败；
 - 若 A/B 双顺序不过噪声门，性能假设失败；
 - 若只在 pos0 赢，不能升级为 production dispatch。
+
+## P0 的最小实现边界
+
+P0 不应同时重写 operator body。先复用相同数学、layout、precision 与 deterministic reduction，只改变 physical kernel 分组和 seam。这样失败时可以把原因缩小到资源、边界或调度，而不是混入新 tile 算法。
+
+每个 island 都应输出 manifest：包含 IType 集合、threads、shared、register target、TMEM capability、instruction count、barrier tensor 大小与 CUBIN hash。Graph 侧另存 node census、依赖边和参数地址。
+
+## OProj→UpGate 的发布合同
+
+OProj 写完 `hidden[2048]` 后，完成信号必须以 release 语义发布；MLP island 在读取 hidden 前 acquire。若 Graph/kernel 边界本身提供所需顺序，应明确由哪条 CUDA 合同保证，避免再加入重复全局轮询。hidden 被下一层 residual 覆写前，还要确认所有 consumer 已结束。
+
+## 练习：填写 P0 实验卡
+
+写出唯一自变量、A/B 两臂、正确性门、Graph census、计时边界、workload buckets 与五个失败条件。要求另一个人只看实验卡就能复跑，并能判断某次“更快”是否其实走了 fallback。

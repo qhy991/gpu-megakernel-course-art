@@ -54,3 +54,15 @@ consumer warpgroup 在 persistent loop 前执行 `setmaxnreg.inc`，service warp
 `CTA 入场 → 一次拿到 shared/register/TMEM envelope → instruction0/1 内容交错复用 → page token 循环 → 所有 instruction 完成 → CTA 退出 → 资源真正归还`
 
 理解这条时间线后，就不会把“page 已 free”误写成“occupancy 已提高”。
+
+## 内容复用与驻留复用
+
+page FINISHED 允许 loader 覆写 shared 中一段内容；instruction ACK 允许 ring slot 进入下一 epoch；CTA 退出才把该 CTA 的 register/shared 配额交还给 SM。三者发生在完全不同的时间尺度。优化内容复用可以减少所需 page 数，却只有在重新编译后降低 CTA envelope，才可能改变 occupancy。
+
+## Peak-live 的正确算法
+
+对同一种资源画生命周期区间，取任一时刻同时存活量的最大值；不同资源分别计算，再把各自上限送入 occupancy 约束。不能把 register 70%、shared 45%、TMEM 10% 相加成 125%，因为它们没有共同分母。
+
+## 练习：画资源甘特图
+
+画 controller、loader、consumer、storer 在三条 instruction 上的 register live range、shared page ownership 和 TMEM lifetime。圈出各资源峰值，再指出哪些 token release 只缩短内容生命周期，哪些变化会真正缩小 exact binary envelope。

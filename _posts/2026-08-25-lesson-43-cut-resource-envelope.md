@@ -65,3 +65,17 @@ Island B：再次占满 → 退出 → 释放
 `source geometry → exact CUBIN attrs → occupancy API → NCU/timeline → paired latency`
 
 Phase82 没有冻结 timed exact CUBIN、ptxas、SASS 与 NCU，因此不能拿后验重建物的资源数字冒充原实验制品。
+
+## 资源按什么粒度分配
+
+register 与 shared memory 通常在 CTA 驻留期间按整个 kernel/CTA 包络分配，不会因当前 instruction 暂时不用就归还给 SM。源码删除分支也不保证 ptxas 降低 register；动态 shared 上限若仍按通用 Dispatcher 配置，专用 island 仍可能申请同样大小。
+
+资源审计必须沿 `source → compile flags/ptxas → exact CUBIN → occupancy API → observed residency` 前进。前一层只说明可能性，后一层才说明实际发生。
+
+## 为什么不能把百分比相加
+
+register、shared、TMEM、thread/warp 与 block slot 是独立约束。CTA/SM 上限取各资源计算结果的最小值，而不是几个占用百分比之和。shared 不再是瓶颈后，register 仍可能把上限锁在 1；这意味着下一把锁被暴露，不等于前一步无价值。
+
+## 练习：做准入账本
+
+为 whole、Attention island、MLP island 三个 exact binary 记录 threads/CTA、registers/thread、static/dynamic shared、TMEM columns、grid blocks 与 occupancy query，并注明哪个字段不变会否定“切分释放资源”的假设。

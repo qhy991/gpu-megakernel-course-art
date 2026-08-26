@@ -34,6 +34,11 @@ posts = Dir[ROOT.join("_posts/*.md")].map do |file|
   fail_check("#{file} missing fields: #{missing.join(', ')}") unless missing.empty?
   fail_check("#{file} needs a 本课用词 block") unless body.include?("**本课用词**")
   fail_check("#{file} needs at least three main sections") if body.scan(/^## /).size < 3
+  fail_check("#{file} is too short for a detailed lesson") if body.length < 1_500
+  if data.fetch("lesson") >= 36
+    fail_check("#{file} needs at least six main sections") if body.scan(/^## /).size < 6
+    fail_check("#{file} needs a lesson-specific exercise") unless body.match?(/^## .*练习/)
+  end
 
   image = ROOT.join(data.fetch("image").sub(%r{^/}, ""))
   fail_check("missing image: #{image}") unless image.file?
@@ -69,4 +74,5 @@ end
 
 puts "PASS: #{posts.size} lessons (#{lessons.first}-#{lessons.last})"
 puts "PASS: metadata, terminology blocks, sections, navigation and 16:9 images"
+puts "PASS: detailed-lesson length, advanced-section depth and exercises"
 puts "PASS: README, about, evidence and glossary entry points"

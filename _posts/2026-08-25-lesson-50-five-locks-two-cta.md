@@ -52,3 +52,17 @@ next_title: "R0–R5：五个实验臂为什么不能跳级？"
 `FIT → FILL → FINISH → FASTER`
 
 先证明资源容得下，再证明工作喂得满，再证明真实 KV 正确完成，最后才看延迟。任何跳步都会制造假阳性。
+
+## 五把锁为什么是 AND
+
+shared 和 register 决定静态准入，TMEM/cluster 决定额外硬件合同，grid supply 决定是否有第二个 CTA 可调度，worker identity 决定两个 CTA 是否执行不同工作。任一项为假，最终都不能得到“两个有用 CTA 同驻留”。
+
+尤其要区分 query 与 observation：occupancy API 返回 2 只说明资源模型允许；NCU 或时间线看到 2 才说明运行时发生；两 CTA 都完成唯一任务且结果正确，才说明这次同驻留有用。
+
+## Worker Identity 的 Exactly-once 门
+
+为 296 个 logical slot 准备位图或计数器。每个 CTA 用 `blockIdx.x` 或明确 bundle ID claim 唯一 slot；结束时记录访问次数。验收必须同时满足 296 个 slot 全部恰好一次、无重复、无遗漏、barrier target 与实际 producer 数一致。
+
+## 练习：给失败分类
+
+对以下现象分别定位哪把锁：query=1；query=2 但 grid148；grid296 但后148队列从未访问；两 CTA 同驻留但 logits 漂移；正确且同驻留却变慢。最后一个不是资格失败，而是性能 verdict。

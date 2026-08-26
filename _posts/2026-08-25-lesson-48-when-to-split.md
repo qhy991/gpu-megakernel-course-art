@@ -59,3 +59,15 @@ LMHead helper 看起来资源更干净，但完整 forward 仍慢；后续还发
 6. 生产 workload buckets 没有不可接受回退。
 
 否则它应被标成 source proposal、research-positive 或 archive，而不是 winner。
+
+## 把判据写成决策流程
+
+先问 seam 是否已有 global payload；若没有，切分会新增 materialization。再问 exact resource 是否能 right-size；若不能，资源收益为零。随后验证 publication/ACK 和工作量闭合，最后才进入 paired whole-boundary A/B。任一步失败都应停止扩大实现范围。
+
+## 维护性收益要单独记账
+
+即使 latency 持平，island 也可能带来更容易 profile、回滚、选择 workload-specific body 的工程收益。但这应单独标成 maintainability verdict，不能写成性能 winner。反之，微小速度收益若引入复杂跨 kernel 协议，也可能不值得上线。
+
+## 练习：给三个 Seam 打分
+
+对 QKV→Attention、OProj→UpGate、UpGate→Down 分别填写 payload 大小、自然 publication、可释放资源、丢失 overlap、新增 launch 和证据等级。只选择一条进入 P0，并写出为什么另外两条暂缓。

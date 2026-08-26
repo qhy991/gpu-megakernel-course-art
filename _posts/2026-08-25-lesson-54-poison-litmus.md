@@ -75,3 +75,29 @@ Phase73 的 relaxed direct 在短 20 次中幸存，但 resident Graph 已漂移
 poison、gate、trace、heartbeat 会改变资源和调度。因此 debug-litmus CUBIN 与 release-perf CUBIN 必须分别冻结 hash。
 
 任何把 debug latency 当性能，或用 release binary 运行缺少定向可观察性的 fault matrix，都应判无效。
+
+## Host 准入与 Watchdog
+
+在解释内存序前，先证明 producer/consumer CTA 能同时进入且位于预期 SM/cluster。否则 consumer 没读到 poison，可能只是 producer 已完整结束后它才入场。heartbeat 记录双方到达各个 gate 的次序；watchdog 超时时，两边走统一 abort 协议，避免一个 CTA 退出、另一个永久自旋。
+
+## 一张完整 Fault Matrix
+
+至少包含 GOOD、READY_EARLY、ACK_EARLY、NO_ACQUIRE、错误 epoch 和重复 ACK。每个 mutant 预注册可判定签名：
+
+| Mutant | 期望观察 |
+| --- | --- |
+| READY_EARLY | W2/W3 poison，mask `1100` |
+| ACK_EARLY | 被暂停 W3 读到下一 epoch |
+| wrong epoch | stale/next tag 或拒绝 claim |
+| duplicate ACK | 提前复用或计数越界 |
+| NO_ACQUIRE | 失败可定罪，全绿仍不闭合保证 |
+
+GOOD 必须零 poison、零 mixed epoch、零 timeout；mutant 按签名失败才算测试系统通过。
+
+## 从 Litmus 到生产结论
+
+Litmus 证明的是一个最小协议在目标 binary/硬件上的可观察行为，不自动证明完整 Megakernel 所有路径安全。移植时要逐条映射 producer、payload、scope、epoch、ACK 和 reuse；release/perf binary 还需独立正确性回放、exact SASS 与 paired latency。
+
+## 课程结业练习
+
+选择课程中的一条跨 CTA 数据边，写出 GOOD 与两个 mutant，冻结 CUBIN hash、admission、fault signature 和 verdict 规则。最后分别写一句 safety 结论、liveness 结论与 performance 结论，禁止相互替代。

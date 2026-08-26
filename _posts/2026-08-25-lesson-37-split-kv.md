@@ -66,3 +66,17 @@ P16 相比 P1，每层净增 `128` 条 scheduler instruction；32 层净增 `409
 - Reduction 必须保留稳定 softmax 数值协议。
 - 完整 megakernel 计时不能冒充 attention-only。
 - 长上下文强 winner 不代表短上下文也该选 P16。
+
+## 从完整 Attention 公式拆出 Partial
+
+标准 attention 对一条 query 计算 `softmax(qKᵀ)V`。Split-KV 只沿历史 token 维切分：每个 partition 仍看到完整 query，但只读取自己负责的 K/V 区间。局部输出不能直接相加，因为每份 softmax 使用了不同的归一化分母。
+
+对 partition `p` 保存局部最大值 `m_p`、局部分母 `l_p` 与未归一化向量 `o_p` 后，全局归约先取 `m=max(m_p)`，再用 `exp(m_p-m)` 缩放各份结果。课程中的 base-2 LSE 写法与此等价；最大值平移必须保留，否则长上下文下容易上溢或下溢。
+
+## 怎样选择 Partition 数
+
+partition 太少时 task supply 不足；太多时每个 partial 变短，固定调度、加载 query、写 partial 和 reduction 的税占比上升。选择 `P` 时至少记录 task 数、每份 KV blocks、partial buffer 流量、reduction fan-in 和 workload bucket。因此生产策略通常按 context 选择 P1/P4/P8/P16，而不是全局固定 P16。
+
+## 练习：验证任务账本
+
+给定 8 个 KV head、32 层和 partition 数 `P`，推导相对 P1 新增的 partial 与 reduction instruction 数。再检查实测任务计数是否与公式完全一致。若计数不符，先排查 fallback、漏任务或 schedule 变化，不要先解释性能。

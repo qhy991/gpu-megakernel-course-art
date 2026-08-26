@@ -57,3 +57,15 @@ input depth 改成1后，LID3–6 从未使用，应最早释放；LID1/2 在最
 ## 最便宜的 falsifier
 
 先独立测试 `iters=1..7`，覆盖 phase 翻转与 stage reuse；UpGate 另测偶数 `2/4/6`。随后才跑完整 Attention/MLP island。
+
+## 用三个坐标给状态命名
+
+调试日志不要只写 `stage=1`，而应同时打印 instruction epoch、weight iteration/stage、output scratch slot。例如 `(inst_epoch=7, weight_iter=4, scratch=1)`。这样看到 poison 或超时时，才能判断错误发生在哪套循环，而不是猜某个模糊的“第三阶段”。
+
+## Depth1 的理想代价
+
+depth3 可以隐藏后续 weight TMA，depth1 必须在同一对 page 上交替等待 FINISHED 与 READY。它减少 shared footprint，但可能暴露 load latency。R1a 的任务就是独立测出这笔代价；R1b 再判断释放 shared 是否打开新准入。两者相加不一定等于最终双 CTA 收益，因为 residency 会改变调度。
+
+## 练习：手算 Phase
+
+对 instruction epoch 5、`iters=4` 写出每轮 weight parity、output slot 与最终 page release 顺序。再对 epoch 6 重复一次，确认 parity 翻转不会影响 `i % 3` 的 scratch 选择。
