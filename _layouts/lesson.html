@@ -29,6 +29,14 @@ layout: default
         <p><strong>证据状态：</strong>{{ page.status | default: 'EVIDENCE-BOUNDED' }}。这个标签说明本课哪些内容已经测量、哪些仅由源码支持、哪些仍是待验证设计；具体规则见<a href="{{ '/evidence/' | relative_url }}">证据规则</a>。</p>
       </section>
       {{ content }}
+      <section class="lesson-self-check" aria-label="读完自检">
+        <h2>读完自检</h2>
+        <ol>
+          <li>先不看上文，用自己的话回答：{{ page.beginner_question }}</li>
+          <li>再对照本课结论：{{ page.takeaway }}</li>
+          <li>根据 <code>{{ page.status | default: 'EVIDENCE-BOUNDED' }}</code>，说出这条结论能证明什么、不能外推什么。</li>
+        </ol>
+      </section>
     </div>
   </div>
   <nav class="lesson-nav shell" aria-label="课程翻页">

@@ -419,14 +419,14 @@ MPS            描述多个进程如何共享 GPU
 
 ## 新手自测
 
-1. 一个 kernel 包含 32 层，就一定跨 token 吗？  
+1. 一个 kernel 包含 32 层，就一定跨 token 吗？
    **不一定。它可能处理完一个 token 就退出。**
 
-2. CUDA Graph 是一个 Megakernel 吗？  
+2. CUDA Graph 是一个 Megakernel 吗？
    **不是。Graph 内通常仍有很多物理 kernel。**
 
-3. 打开 MPS 就能让两个满占 SM 的 Megakernel 高效并发吗？  
+3. 打开 MPS 就能让两个满占 SM 的 Megakernel 高效并发吗？
    **不能。MPS 不会创造额外硬件资源。**
 
-4. 你的 8B VM 为什么可以叫 persistent？  
+4. 你的 8B VM 为什么可以叫 persistent？
    **因为 CTA 在一次 launch 内保持驻留并连续执行很多 tile instruction。**

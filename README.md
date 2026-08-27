@@ -52,7 +52,7 @@ CUDA Event 的 model-forward 时间不等于 HTTP serving wall；occupancy query
 - 数据、控制或资源生命周期，而不只描述算子名称；
 - 实测、源码可证、历史快照与待测提案的明确分界；
 - 常见误读、失败条件或不能外推的范围；
-- 可以手算、画图、审计或实现的课后练习。
+- 页面末尾的复述、证据边界与外推范围自检；进阶课另有专属动手练习。
 
 自动检查要求每篇正文不少于 1,500 个字符；第 36–54 课还要求至少六个主章节和一项本课专属练习。字符数只是防止正文退化的下限，不替代技术审校。
 
@@ -72,20 +72,32 @@ CUDA Event 的 model-forward 时间不等于 HTTP serving wall；occupancy query
 ## 仓库结构
 
 ```text
-_posts/                  54 篇课程正文
+_posts/                  54 篇课程正文（网站的内容源）
 _layouts/                Jekyll 页面骨架
 assets/css, assets/js/   课程站样式与交互
 assets/images/           课程总封面与生成提示词
-lesson01/ ... lesson54/  每课的 16:9 图片；部分目录包含生成/修订提示词
+lesson01/ ... lesson54/  每课的完整 README 文档、16:9 图片及可选生成/修订提示词
 about.md                 适合人群与阅读路线
 evidence.md              证据标签和性能结论检查表
 glossary.md              全课程统一术语表
+scripts/                 文档同步与课程完整性检查
 ```
+
+每个 `lessonXX/README.md` 都能在 GitHub 中直接阅读，包含零基础入口、证据状态、
+完整课程正文、读完自检、配图、线上地址和相邻课程导航。它由对应的 `_posts` 文章确定性生成，
+因此修改课程原文后应运行：
+
+```bash
+ruby scripts/sync_lesson_readmes.rb
+ruby scripts/sync_lesson_readmes.rb --check
+```
+
+第一条命令批量更新 54 份目录文档；第二条命令逐字检查它们是否仍与网站正文同步。
 
 图片文件说明：
 
-- `*_16x9.png`：最终教学图，标准尺寸为 1672×941。
-- `imagegen_prompt.md`：生成该图时使用的提示词；它是复现资产，不是课程正文。
+- front matter 的 `image` 字段：决定网站实际使用哪张最终教学图；标准尺寸为 1672×941。
+- `imagegen_prompt.md`：用于生成或复现该图的提示词与视觉规格；它不是课程正文。
 - `imagegen_edit_prompt.md`：视觉审校后的定向修订提示词。
 - `-v2`、`-v3`：保留的历史视觉版本；文章 front matter 中的 `image` 字段决定线上使用哪一张。
 
@@ -115,10 +127,12 @@ bundle exec jekyll serve --baseurl /gpu-megakernel-course-art
 
 ```bash
 ruby scripts/check_course_docs.rb
+ruby scripts/sync_lesson_readmes.rb --check
 ```
 
-它会检查课号连续性、必填 metadata、逐课术语说明、主章节、前后导航、引用图片以及 16:9 比例。
-同时会检查详细正文长度；进阶课程还必须包含足够的主章节和课后练习。
+它会检查课号连续性、必填 metadata、逐课术语说明、主章节、前后导航、引用图片、16:9 比例，
+并阻止不同课程继续复用同一张图片。同时会检查详细正文长度；进阶课程还必须包含足够的
+主章节和课后练习。第二条命令会检查每课目录中的 GitHub 文档是否与对应网站文章完全同步。
 
 ## 新增或修改课程时的检查清单
 

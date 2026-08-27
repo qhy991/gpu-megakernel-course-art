@@ -38,9 +38,9 @@ next_title: "亲手搭一个最小 Megakernel"
 
 ---
 
-# 第一站：当前 Qwen 代码
+## 第一站：当前 Qwen 代码
 
-## 1. 一个小 fused op
+### 1. 一个小 fused op
 
 当前代码中，这个函数调用一次 SGLang fused kernel：
 
@@ -61,7 +61,7 @@ RoPE
 
 它接收已经完成 QKV Projection 的 `qkv`，所以 QKV GEMM 本身不在里面。
 
-## 2. Layer loop 仍然在 Python 模型代码里
+### 2. Layer loop 仍然在 Python 模型代码里
 
 再看 model.py：
 
@@ -92,7 +92,7 @@ for layer 在 Python 方法中
 
 所以这不是一层一个 CUDA kernel，更不是整模型一个 kernel。
 
-## 3. CUDA Graph 只是记录这段执行
+### 3. CUDA Graph 只是记录这段执行
 
 在 graph_decode.py 中：
 
@@ -135,7 +135,7 @@ GPU 重放所有 kernel 节点
 
 ---
 
-# 第二站：oMoE 的全模型物理 Kernel
+## 第二站：oMoE 的全模型物理 Kernel
 
 如果当前工作树没有 checkout 这份代码，但仓库仍保留对应 Git 历史对象，可以在仓库根目录这样查看：
 
@@ -144,7 +144,7 @@ git show \
   070022f97:native/llama_megakernel/src/llama_megakernel.cu
 ```
 
-## 1. 唯一的 `__global__`
+### 1. 唯一的 `__global__`
 
 它的核心形状是：
 
@@ -184,7 +184,7 @@ for layer 在 __global__ 里
 LM Head 和 argmax 也在 __global__ 里
 ```
 
-## 2. Host 每次 forward 只 launch 一次
+### 2. Host 每次 forward 只 launch 一次
 
 Host 侧调用：
 
@@ -199,7 +199,7 @@ cudaLaunchCooperativeKernel(
 
 所以单次 model-forward 的物理边界确实是一个 kernel。
 
-## 3. 为什么它不是跨 token persistent engine
+### 3. 为什么它不是跨 token persistent engine
 
 函数完成 LM Head 和 argmax 后会 return。
 
@@ -217,7 +217,7 @@ cudaLaunchCooperativeKernel(...)
 
 ---
 
-# 第三站：真正的 Resident GPU VM
+## 第三站：真正的 Resident GPU VM
 
 Persistent VM 不再把执行顺序完全写死在巨大函数里，而是把模型变成“应用级指令”。
 
@@ -256,7 +256,7 @@ instructions[SM][slot][32 ints]
 Controller + Loader + Consumer + Storer
 ```
 
-## 1. DAG：先表示“谁依赖谁”
+### 1. DAG：先表示“谁依赖谁”
 
 Scheduler 使用类似下面的结构：
 
@@ -287,7 +287,7 @@ DAG 只描述依赖，不决定具体由哪个 SM 执行。
 
 Hazy 官方 scheduler 中，`DAG_Node` 保存 instruction 和 dependencies，然后 `assign_dag_to_sms()` 把 ready 工作分给预计最早空闲的 SM。[官方 scheduler.py](https://github.com/HazyResearch/Megakernels/blob/main/megakernels/scheduler.py)
 
-## 2. Scheduler：把 DAG 派给 148 支小队
+### 2. Scheduler：把 DAG 派给 148 支小队
 
 可以把 scheduler 想成工厂排班员：
 
@@ -323,7 +323,7 @@ SM 147：...
 
 B200 配置显式使用 148 个 SM，并让 grid 大小等于 SM 数量。[官方 Llama 配置](https://github.com/HazyResearch/Megakernels/blob/main/demos/low-latency-llama/llama.cuh)
 
-## 3. 序列化：把 Python 对象变成整数
+### 3. 序列化：把 Python 对象变成整数
 
 GPU 不能直接理解 Python 的 `Instruction` 对象，所以 scheduler 将每条指令编码为固定长度整数：
 
@@ -347,7 +347,7 @@ serialize()             = 编成统一订单格式
 
 ---
 
-# 第四站：唯一的 Resident `__global__`
+## 第四站：唯一的 Resident `__global__`
 
 官方核心入口大致是：
 
@@ -380,7 +380,7 @@ Python 最后看到的是一个 PyBind 函数 `mk_llama`，但它绑定的是同
 
 ---
 
-# 第五站：CTA 内部为什么要分工
+## 第五站：CTA 内部为什么要分工
 
 同一个 CTA 里，不是所有 warp 做同一件事。
 
@@ -412,7 +412,7 @@ Python 最后看到的是一个 PyBind 函数 `mk_llama`，但它绑定的是同
 
 ---
 
-# 第六站：一条指令在 GPU 里的一生
+## 第六站：一条指令在 GPU 里的一生
 
 假设当前指令是：
 
@@ -461,7 +461,7 @@ sequenceDiagram
 
 ---
 
-# 第七站：为什么要做 Instruction Ring
+## 第七站：为什么要做 Instruction Ring
 
 如果只有一个 instruction buffer：
 
@@ -498,7 +498,7 @@ consumer 使用 `task_iter % 2` 在两个槽之间切换。这是控制面的双
 
 ---
 
-# canonical mk-v2 又多做了什么
+## canonical mk-v2 又多做了什么
 
 你 8 月的 canonical fork在这套 VM 思想上增加了编译器前端：
 
@@ -520,7 +520,7 @@ Dispatcher 打包参数并 JIT 生成 opcode switch
 
 需要明确证据边界：这份 canonical checkout 当前不在本机，远端本轮也无法重连，因此这里是此前核验过的架构快照，不冒充当前本地源码。公开 Hazy legacy 版本则是手工构造 Llama DAG，并没有 FX 自动捕获。
 
-## 最适合新手的源码阅读顺序
+### 最适合新手的源码阅读顺序
 
 不要先打开巨大的 attention CUDA 文件。按下面顺序：
 

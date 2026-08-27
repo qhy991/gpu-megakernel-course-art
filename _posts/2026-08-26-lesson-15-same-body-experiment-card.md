@@ -59,7 +59,7 @@ flowchart LR
 
 ---
 
-# 实验卡
+## 实验卡
 
 以下标记含义：
 
@@ -97,7 +97,7 @@ goal:
   note: "本卡只判定执行架构；不能直接宣布完整模型WIN"
 ```
 
-## 1. 层接口
+### 1. 层接口
 
 当前实现并不是简单的：
 
@@ -166,7 +166,7 @@ layer_contract:
 
 ---
 
-## 2. 实验臂
+### 2. 实验臂
 
 ```mermaid
 flowchart TD
@@ -205,7 +205,7 @@ arms:
     purpose: "后续产品集成比较"
 ```
 
-## Same-body到底是什么意思？
+### Same-body 到底是什么意思？
 
 G和R必须保持相同：
 
@@ -228,7 +228,7 @@ G和R必须保持相同：
 
 ---
 
-## 3. 假设和预期
+### 3. 假设和预期
 
 ```yaml
 hypothesis:
@@ -265,7 +265,7 @@ expected_signals:
 
 ---
 
-## 4. 正确性合同
+### 4. 正确性合同
 
 ```yaml
 correctness:
@@ -310,7 +310,7 @@ correctness:
 
 ---
 
-## 5. 计时边界
+### 5. 计时边界
 
 `fused_add_rmsnorm`可能原地修改输入，因此每次replay前必须恢复输入。
 
@@ -357,7 +357,7 @@ ABBA结构中，两个臂的平均时间位置相同，可以抵消近似线性�
 
 ---
 
-## 6. 先标定harness自己的噪声
+### 6. 先标定 Harness 自己的噪声
 
 在比较G/R前，先做一个`G/G`假对照：
 
@@ -373,7 +373,7 @@ null_control:
 
 ---
 
-## 7. 判决规则
+### 7. 判决规则
 
 先根据当天完整模型基线计算closure预算：
 
@@ -450,7 +450,7 @@ decision_rules:
 
 ---
 
-## 8. 运行后只填写这一部分
+### 8. 运行后只填写这一部分
 
 ```yaml
 actual:
@@ -519,5 +519,5 @@ actual:
 
 最适合新手记住的是：
 
-> G和R比较“resident架构是否有效”；R和production比较“能不能真正上线”。  
+> G和R比较“resident架构是否有效”；R和production比较“能不能真正上线”。
 > SASS、NCU和launch数据负责解释，paired latency负责判决。

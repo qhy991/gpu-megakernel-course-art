@@ -1,0 +1,100 @@
+<!--
+本文由 scripts/sync_lesson_readmes.rb 从对应的 _posts 文章确定性生成。
+请编辑课程原文后重新运行同步脚本，不要单独修改本文件。
+-->
+
+# 第 37 课｜Split-KV：把长上下文注意力摊到更多 SM
+
+![第 37 课：Split-KV：把长上下文注意力摊到更多 SM](./legacy8b_split_kv_16x9.png)
+
+> 从每个 KV head 一条任务扩展到 16 个 partition，再用稳定 LSE reduction 合并结果。
+
+## 零基础先看这里
+
+- **它在解决什么：**为什么把一份长任务切开，反而可能更快？
+- **把它想成：**只有八份作业却有很多工人；把作业拆成小段，大家能同时做，最后再汇总。
+- **这次先不用懂：**可先忽略 GQA、LSE 公式和 partition 数值。
+
+## 本课结论与证据状态
+
+- **一句话结论：**长上下文慢，不一定是算得多，也可能是并行任务太少。
+- **证据状态：**MEASURED · FULL MODEL-FORWARD
+- **怎么看这个标签：**它表示结论的来源与适用范围，不是课程难度；可查看[中文证据规则](../evidence.md)。
+
+## 完整课程正文
+
+> **本课用词**：P1/P16 表示每个 KV head 被切成 1/16 个上下文 partition；partial 是一个 partition 的局部 attention 结果；GQA（Grouped-Query Attention）让多个 Q head 共享较少的 K/V head；LSE 是稳定 softmax 合并使用的 log-sum-exp。
+
+## P1 为什么喂不饱 B200
+
+Llama-8B 有 8 个 KV head。若每个 KV head 只创建一个 attention task，那么一层只有 8 条并行任务。B200 有 148 个 SM，大量执行容量在等待。
+
+Split-KV 把每个 KV head 的上下文再切成 `P=16` 份：
+
+- `8 × 16 = 128` 个 PartialAttention；
+- 每个 partial 同时服务 GQA 对应的 4 个 Q head；
+- 每个 KV head 再创建 1 个 AttentionReduction；
+- attention 子图一层合计 136 个节点。
+
+## 每个 partial 做什么
+
+4K context 有 256 个 16-token KV block，因此每个 partition 处理 16 个 block；8K context 则是 512 个 block，每个 partition 处理 32 个。
+
+每个 partial 输出两样东西：局部向量 `O_p` 与局部 log-sum-exp `L_p`。Reduction 不能简单平均，而要用稳定的 base-2 LSE 合并：
+
+```text
+M = max(L_a, L_b)
+a = 2^(L_a - M)
+b = 2^(L_b - M)
+O = (a O_a + b O_b) / (a + b)
+L = M + log2(a + b)
+```
+
+## 性能数字该怎样读
+
+纯 Split-KV 的完整 32 层 model-forward + LM head：
+
+- pos0：P1 `2.842 ms`；
+- 4K：P1 `10.063 ms` → P16 `3.589 ms`；
+- 8K：P1 `17.288 ms` → P16 `4.050 ms`。
+
+`3.535 ms / 4.011 ms` 是后续再叠加 Dynamic Tail 的组合结果，不能全部归给 Split-KV。上述计时也不是 attention-only，更不是 HTTP serving wall。
+
+## 一个漂亮的闭合证据
+
+P16 相比 P1，每层净增 `128` 条 scheduler instruction；32 层净增 `4096` 条。完整任务数从 `22804` 变为 `26900`，差值恰好是 `32 × 128`。
+
+这说明 profile 确实跑到了设计的 P16 DAG，而不是某个 fallback。
+
+## 新手检查表
+
+- 先数 task，不要只数 FLOP。
+- Reduction 必须保留稳定 softmax 数值协议。
+- 完整 megakernel 计时不能冒充 attention-only。
+- 长上下文强 winner 不代表短上下文也该选 P16。
+
+## 从完整 Attention 公式拆出 Partial
+
+标准 attention 对一条 query 计算 `softmax(qKᵀ)V`。Split-KV 只沿历史 token 维切分：每个 partition 仍看到完整 query，但只读取自己负责的 K/V 区间。局部输出不能直接相加，因为每份 softmax 使用了不同的归一化分母。
+
+对 partition `p` 保存局部最大值 `m_p`、局部分母 `l_p` 与未归一化向量 `o_p` 后，全局归约先取 `m=max(m_p)`，再用 `exp(m_p-m)` 缩放各份结果。课程中的 base-2 LSE 写法与此等价；最大值平移必须保留，否则长上下文下容易上溢或下溢。
+
+## 怎样选择 Partition 数
+
+partition 太少时 task supply 不足；太多时每个 partial 变短，固定调度、加载 query、写 partial 和 reduction 的税占比上升。选择 `P` 时至少记录 task 数、每份 KV blocks、partial buffer 流量、reduction fan-in 和 workload bucket。因此生产策略通常按 context 选择 P1/P4/P8/P16，而不是全局固定 P16。
+
+## 练习：验证任务账本
+
+给定 8 个 KV head、32 层和 partition 数 `P`，推导相对 P1 新增的 partial 与 reduction instruction 数。再检查实测任务计数是否与公式完全一致。若计数不符，先排查 fallback、漏任务或 schedule 变化，不要先解释性能。
+
+## 读完自检
+
+1. 先不看上文，用自己的话回答：为什么把一份长任务切开，反而可能更快？
+2. 再对照本课结论：长上下文慢，不一定是算得多，也可能是并行任务太少。
+3. 根据 `MEASURED · FULL MODEL-FORWARD`，说出这条结论能证明什么、不能外推什么。
+
+## 继续学习
+
+- [在线阅读本课](https://qhy991.github.io/gpu-megakernel-course-art/lessons/lesson-37-split-kv/)
+- [← 上一课 · 第 36 课：Page-ready：为什么 128 KiB 大门会让 Megakernel 空等？](../lesson36/)
+- [下一课 · 第 38 课：Dynamic Tail：最后 2048 维为什么不该让 16 个 warp 都工作？ →](../lesson38/)

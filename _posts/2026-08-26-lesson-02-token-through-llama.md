@@ -404,11 +404,11 @@ acquire 后读取新数据
 
 如果下面三道题能答出来，这一课就掌握了：
 
-1. CUDA Graph 里面还有没有多个 kernel？  
+1. CUDA Graph 里面还有没有多个 kernel？
    有。Graph 主要减少 CPU 提交开销。
 
-2. 为什么 split-KV 明明增加了 reduction，反而更快？  
+2. 为什么 split-KV 明明增加了 reduction，反而更快？
    因为它把 8 个大任务变成约 128 个并行任务，显著提高 SM 利用率。
 
-3. 为什么删除 56 MiB 流量，整模型只快约 1.4%？  
+3. 为什么删除 56 MiB 流量，整模型只快约 1.4%？
    因为只优化了一条局部数据流，其他 GEMM、attention、同步仍占大部分时间。
